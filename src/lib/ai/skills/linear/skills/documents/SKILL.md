@@ -3,7 +3,7 @@ name: documents
 description: Create and update documents attached to a project, initiative, issue, or cycle.
 criteria: Use when the user wants to create or update a document.
 tools: [create_document, update_document]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

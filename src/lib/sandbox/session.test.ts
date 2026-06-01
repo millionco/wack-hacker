@@ -31,7 +31,7 @@ envRedisStore.redis = createMemoryRedis();
 
 const baseParams = {
   threadKey: "T1",
-  repo: "purduehackers/agent-sandbox-test",
+  repo: "millionco/agent-sandbox-test",
   githubToken: "ghs_token",
   gitUser: { name: "wack-hacker[bot]", email: "bot@example.com" },
 };
@@ -70,7 +70,7 @@ describe("getOrCreateSession — fresh provisioning", () => {
     expect(createCalls).toHaveLength(1);
     expect(createCalls[0]!.repo).toBe(baseParams.repo);
     expect(createCalls[0]!.skipCloneAndBranch).toBeFalsy();
-    expect(session.metadata.branch).toMatch(/^wack-hacker\/agent-sandbox-test-/);
+    expect(session.metadata.branch).toMatch(/^pookie\/agent-sandbox-test-/);
     expect(session.metadata.sandboxId).toBe("sb-0");
     expect(provisionedCount).toBe(1);
   });
@@ -179,7 +179,7 @@ describe("getOrCreateSession — repo changed", () => {
     const pv = createTestSandboxProvider();
     await redis.set(
       redisKey(),
-      sessionMetadata({ sandboxId: "sb-old", repo: "purduehackers/other-repo" }),
+      sessionMetadata({ sandboxId: "sb-old", repo: "millionco/other-repo" }),
       { ex: 60 },
     );
 
@@ -201,7 +201,7 @@ describe("getOrCreateSession — repo changed", () => {
     pv.failReconnectOnce();
     await redis.set(
       redisKey(),
-      sessionMetadata({ sandboxId: "sb-old", repo: "purduehackers/other-repo" }),
+      sessionMetadata({ sandboxId: "sb-old", repo: "millionco/other-repo" }),
       { ex: 60 },
     );
 
@@ -224,7 +224,7 @@ describe("getOrCreateSession — repo changed", () => {
       redisKey(),
       sessionMetadata({
         sandboxId: "sb-old",
-        repo: "purduehackers/other-repo",
+        repo: "millionco/other-repo",
         hibernated: true,
         snapshotId: "snap-old",
       }),
@@ -360,7 +360,7 @@ describe("generateBranchName (via provisionFreshSession)", () => {
       provider,
       onProvisioned: async () => {},
     });
-    expect(session.metadata.branch).toMatch(/^wack-hacker\/repo-[a-z0-9]+$/);
+    expect(session.metadata.branch).toMatch(/^pookie\/repo-[a-z0-9]+$/);
   });
 });
 

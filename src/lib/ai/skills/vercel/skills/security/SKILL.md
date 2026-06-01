@@ -13,7 +13,7 @@ tools:
     get_auth_token,
     delete_auth_token,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

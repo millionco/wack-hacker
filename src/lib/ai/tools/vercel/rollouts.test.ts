@@ -25,8 +25,8 @@ vi.mock("./client.ts", () => ({
 
 vi.mock("./constants.ts", () => ({
   VERCEL_TEAM_ID: "team_test",
-  VERCEL_TEAM_SLUG: "purduehackers",
-  VERCEL_DASHBOARD_BASE: "https://vercel.com/purduehackers",
+  VERCEL_TEAM_SLUG: "millionco",
+  VERCEL_DASHBOARD_BASE: "https://vercel.com/millionco",
 }));
 
 const mod = await import("./rollouts.ts");

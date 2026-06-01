@@ -2,16 +2,10 @@ import { evlog, type EvlogVariables } from "evlog/hono";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
-import crons from "./routes/crons";
-import gateway from "./routes/gateway";
-import interactions from "./routes/interactions";
-
-const discord = new Hono();
-discord.route("/", gateway);
-discord.route("/", interactions);
-
+// Slack ingress is handled by the Next route at `app/api/webhooks/slack`. This
+// Hono app remains as the `/api` catch-all and exposes a health check; the
+// Discord gateway/interactions/cron routes were removed in the Slack cutover.
 export const app = new Hono<EvlogVariables>().basePath("/api");
 app.use(cors());
 app.use(evlog());
-app.route("/discord", discord);
-app.route("/", crons);
+app.get("/health", (c) => c.json({ ok: true }));

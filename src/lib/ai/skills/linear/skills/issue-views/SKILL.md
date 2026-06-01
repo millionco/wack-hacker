@@ -3,7 +3,7 @@ name: issue-views
 description: Query and analyze issue views in list or insight mode, with filters.
 criteria: Use for "show me issues matching X" or "count/break down issues by Y".
 tools: [query_issue_view]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

@@ -3,17 +3,16 @@ import type { MockLanguageModelV3 } from "ai/test";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
-  discordRESTClass,
+  contextForRole,
   installMockProvider,
   linearClientClass,
-  messagePacket,
   notionClientClass,
   octokitClass,
-  resendClass,
   streamingTextModel,
   uninstallMockProvider,
 } from "@/lib/test/fixtures";
 
+import { UserRole } from "./constants.ts";
 import { AgentContext } from "./context.ts";
 import { TurnUsageTracker } from "./turn-usage.ts";
 
@@ -22,12 +21,7 @@ import { TurnUsageTracker } from "./turn-usage.ts";
 vi.mock("@linear/sdk", () => ({ LinearClient: linearClientClass() }));
 vi.mock("octokit", () => ({ Octokit: octokitClass() }));
 vi.mock("@octokit/auth-app", () => ({ createAppAuth: vi.fn(() => ({})) }));
-vi.mock("@discordjs/rest", () => ({ REST: discordRESTClass() }));
 vi.mock("@notionhq/client", () => ({ Client: notionClientClass() }));
-vi.mock("resend", () => ({ Resend: resendClass() }));
-vi.mock("@vercel/edge-config", () => ({
-  createClient: vi.fn(() => ({ getAll: vi.fn().mockResolvedValue({}) })),
-}));
 vi.mock("workflow/api", () => ({
   start: vi.fn().mockResolvedValue({ runId: "run-test" }),
   getRun: vi.fn(() => ({ cancel: vi.fn().mockResolvedValue(undefined) })),
@@ -38,13 +32,7 @@ vi.mock("@vercel/sandbox", () => ({
 
 const { createOrchestrator } = await import("./orchestrator.ts");
 
-const BASE_TOOLS = [
-  "cancel_task",
-  "documentation",
-  "list_scheduled_tasks",
-  "resolve_organizer",
-  "schedule_task",
-];
+const BASE_TOOLS = ["cancel_task", "list_scheduled_tasks", "schedule_task"];
 
 describe("createOrchestrator", () => {
   let model: MockLanguageModelV3;
@@ -73,38 +61,40 @@ describe("createOrchestrator", () => {
       .sort();
   }
 
-  it("gives public users only base tools (all delegate skills require organizer+)", async () => {
-    const ctx = AgentContext.fromPacket(messagePacket("hello"));
+  it("gives public users only base tools (all delegate skills require member+)", async () => {
+    const ctx = contextForRole(UserRole.Public);
     await drain(ctx);
 
     expect(getToolNames()).toEqual(BASE_TOOLS.sort());
   });
 
-  it("includes delegation tools for users with the organizer role", async () => {
-    const ctx = AgentContext.fromPacket(
-      messagePacket("hello", { memberRoles: ["1012751663322382438"] }),
-    );
+  it("includes delegation tools for users with the member role", async () => {
+    const ctx = contextForRole(UserRole.Member);
     await drain(ctx);
 
     const tools = getToolNames();
     expect(tools).toEqual(
       expect.arrayContaining([
         ...BASE_TOOLS,
-        "delegate_discord",
-        "delegate_figma",
+        "delegate_slack",
         "delegate_github",
         "delegate_linear",
         "delegate_notion",
-        "delegate_sales",
         "delegate_sentry",
+        "delegate_vercel",
+        "delegate_stripe",
+        "delegate_exa",
       ]),
     );
   });
 
   it("injects execution context into system prompt via buildInstructions", async () => {
-    const ctx = AgentContext.fromPacket(
-      messagePacket("hello", { author: { id: "u1", username: "alice" } }),
-    );
+    const ctx = AgentContext.fromSlack({
+      userId: "U1",
+      username: "alice",
+      channel: { id: "C1", name: "general" },
+      role: UserRole.Member,
+    });
     await drain(ctx);
 
     const call = model.doStreamCalls[0]!;
@@ -113,7 +103,6 @@ describe("createOrchestrator", () => {
       typeof system?.content === "string" ? system.content : JSON.stringify(system?.content);
     expect(systemContent).toContain("<execution_context>");
     expect(systemContent).toContain('username: "alice"');
-    expect(systemContent).toContain("Purdue Hackers");
     expect(systemContent).not.toContain("{{DATE}}");
   });
 });

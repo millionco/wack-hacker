@@ -3,7 +3,7 @@ name: reactions
 description: Add or remove reaction emojis on issues and issue/PR comments.
 criteria: Use when the user wants to react to an issue or comment with an emoji, or remove a reaction.
 tools: [add_issue_reaction, remove_issue_reaction, add_comment_reaction, remove_comment_reaction]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

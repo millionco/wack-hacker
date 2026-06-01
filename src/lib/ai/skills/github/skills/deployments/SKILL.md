@@ -11,7 +11,7 @@ tools:
     list_pages_builds,
     trigger_pages_build,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

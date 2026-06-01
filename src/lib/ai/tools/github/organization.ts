@@ -8,7 +8,7 @@ import { paginationInputShape } from "../_shared/constants.ts";
 import { octokit } from "./client.ts";
 
 export const list_org_members = tool({
-  description: `List members of the purduehackers organization. Optionally filter by role (all, admin, member). Returns login, ID, avatar URL, and profile URL.`,
+  description: `List members of the millionco organization. Optionally filter by role (all, admin, member). Returns login, ID, avatar URL, and profile URL.`,
   inputSchema: z.object({
     role: z.enum(["all", "admin", "member"]).optional(),
     ...paginationInputShape,
@@ -50,7 +50,7 @@ export const get_org_member = tool({
 });
 
 export const list_teams = tool({
-  description: `List teams in the purduehackers organization. Returns ID, name, slug, description, privacy, and URL.`,
+  description: `List teams in the millionco organization. Returns ID, name, slug, description, privacy, and URL.`,
   inputSchema: z.object({
     ...paginationInputShape,
   }),
@@ -140,7 +140,7 @@ export const list_repo_webhooks = tool({
 
 export const invite_org_member = admin(
   tool({
-    description: `Invite a GitHub user to the purduehackers organization or update their role. Role can be "admin" or "member" (default).`,
+    description: `Invite a GitHub user to the millionco organization or update their role. Role can be "admin" or "member" (default).`,
     inputSchema: z.object({
       username: z.string().describe("GitHub username to invite"),
       role: z.enum(["admin", "member"]).optional().describe("Org role (default: member)"),
@@ -163,7 +163,7 @@ export const invite_org_member = admin(
 export const remove_org_member = admin(
   approval(
     tool({
-      description: `Remove a user from the purduehackers organization. This revokes all their access to org repos.`,
+      description: `Remove a user from the millionco organization. This revokes all their access to org repos.`,
       inputSchema: z.object({
         username: z.string().describe("GitHub username to remove"),
       }),
@@ -295,7 +295,7 @@ export const delete_webhook = approval(
 );
 
 export const list_org_webhooks = tool({
-  description: `List webhooks configured for the purduehackers organization. Returns ID, active status, subscribed events, and config URL.`,
+  description: `List webhooks configured for the millionco organization. Returns ID, active status, subscribed events, and config URL.`,
   inputSchema: z.object({
     ...paginationInputShape,
   }),

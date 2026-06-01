@@ -16,7 +16,7 @@ tools:
     add_team_member,
     remove_team_member,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

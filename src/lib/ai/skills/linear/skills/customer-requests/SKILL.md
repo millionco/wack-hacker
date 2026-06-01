@@ -3,7 +3,7 @@ name: customer-requests
 description: Create, update, list, and analyze customer requests.
 criteria: Use when the user wants to log, update, list, or analyze customer feedback/requests.
 tools: [create_customer_need, update_customer_need, list_customer_needs]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

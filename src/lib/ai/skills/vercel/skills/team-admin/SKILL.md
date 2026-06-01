@@ -27,7 +27,7 @@ tools:
     get_custom_environment,
     remove_custom_environment,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

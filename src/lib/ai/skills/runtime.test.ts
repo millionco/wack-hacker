@@ -59,7 +59,7 @@ describe("computeActiveTools — activation", () => {
         step([{ toolName: "loadSkill", input: { name: "linear" } }]),
       ],
       registry,
-      role: UserRole.Organizer,
+      role: UserRole.Member,
       baseToolNames,
     });
     expect(result?.sort()).toEqual([

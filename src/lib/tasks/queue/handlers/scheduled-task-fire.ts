@@ -1,16 +1,11 @@
-import type { API } from "@discordjs/core/http-only";
-
 import { z } from "zod";
 
 import type { ScheduledTaskRow } from "@/lib/tasks/types";
 
-import { AgentContext } from "@/lib/ai/context.ts";
-import { MessageRenderer } from "@/lib/ai/message-renderer.ts";
-import { streamTurn } from "@/lib/ai/streaming.ts";
+import { deliverSlackScheduledMessage, runSlackScheduledAgent } from "@/lib/ai/slack/scheduled.ts";
 import { createWideLogger } from "@/lib/logging/wide";
 import { countMetric, recordDistribution } from "@/lib/metrics";
 import { withSpan } from "@/lib/otel/tracing";
-import { DEFAULT_TIMEZONE } from "@/lib/tasks/constants";
 import { nextOccurrence } from "@/lib/tasks/cron";
 import { claimFire, getScheduledTask, updateScheduledTask } from "@/lib/tasks/db";
 import { ScheduledTaskStatus, ScheduleType } from "@/lib/tasks/enums";
@@ -30,19 +25,16 @@ export const scheduledTaskFire = defineTask({
     taskId: z.string(),
     targetIso: z.string(),
   }),
-  async handle({ taskId, targetIso }, discord) {
+  async handle({ taskId, targetIso }) {
     return withSpan(
       "scheduled_task.fire",
       { "task.id": taskId, "task.target_iso": targetIso },
-      () => runFire({ taskId, targetIso }, discord),
+      () => runFire({ taskId, targetIso }),
     );
   },
 });
 
-async function runFire(
-  payload: { taskId: string; targetIso: string },
-  discord: API,
-): Promise<void> {
+async function runFire(payload: { taskId: string; targetIso: string }): Promise<void> {
   const { taskId, targetIso } = payload;
   const logger = createWideLogger({
     op: "scheduled_task.fire",
@@ -82,7 +74,7 @@ async function runFire(
   });
 
   try {
-    await executeAction(task, discord);
+    await executeAction(task);
   } catch (err) {
     countMetric("scheduled_task.action_error", {
       schedule_type: task.scheduleType,
@@ -198,41 +190,19 @@ async function finalizeFire(
   });
 }
 
-async function executeAction(task: ScheduledTaskRow, discord: API): Promise<void> {
-  const taskFooter = `-# Task: ${task.id}`;
-
+async function executeAction(task: ScheduledTaskRow): Promise<void> {
   if (task.action.type === "message") {
     const { channelId, content } = task.action;
-    for (const chunk of MessageRenderer.splitWithFooter(content, taskFooter)) {
-      await discord.channels.createMessage(channelId, { content: chunk });
-    }
+    await deliverSlackScheduledMessage(channelId, content, task.id);
     return;
   }
 
   const { channelId, prompt } = task.action;
-  const fireTime = new Date();
-  // `memberRoles` is re-resolved by `AgentContext.role` at execute time, so a
-  // privilege revocation between scheduling and firing is honored. `nowISO`
-  // is fresh so `{{NOW_ISO}}` reflects the fire moment, not schedule time.
-  const context = AgentContext.fromJSON({
-    userId: task.userId,
-    username: "system",
-    nickname: "Scheduled Task",
-    channel: { id: channelId, name: "scheduled" },
-    date: fireTime.toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }),
-    nowISO: fireTime.toISOString(),
-    timezone: task.timezone ?? DEFAULT_TIMEZONE,
-    memberRoles: task.memberRoles ?? undefined,
-  });
-
-  await streamTurn(discord, channelId, [{ role: "user", content: prompt }], context.toJSON(), {
+  await runSlackScheduledAgent({
     taskId: task.id,
-    workflowRunId: task.id,
-    turnIndex: 1,
+    userId: task.userId,
+    channelId,
+    prompt,
+    timezone: task.timezone ?? undefined,
   });
 }

@@ -25,7 +25,7 @@ function recordingSandbox(
 }
 
 const BASE_CONFIG = {
-  repo: "purduehackers/agent-sandbox-test",
+  repo: "millionco/agent-sandbox-test",
   branch: "wack-hacker/test",
   gitUser: { name: "wack-hacker[bot]", email: "bot@example.com" },
 };
@@ -114,7 +114,7 @@ describe("buildSandboxHooks — error surfacing", () => {
     });
     const hooks = buildSandboxHooks({ ...BASE_CONFIG, hasBaseSnapshot: true });
     await expect(hooks.afterStart!(sandbox)).rejects.toThrow(
-      /clone purduehackers\/agent-sandbox-test failed \(exit 128\).*Authentication failed/,
+      /clone millionco\/agent-sandbox-test failed \(exit 128\).*Authentication failed/,
     );
   });
 

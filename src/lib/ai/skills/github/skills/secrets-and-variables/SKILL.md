@@ -17,7 +17,7 @@ tools:
     create_or_update_org_variable,
     delete_org_variable,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

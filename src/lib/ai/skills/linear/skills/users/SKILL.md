@@ -14,7 +14,7 @@ tools:
     list_invites,
     delete_invite,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

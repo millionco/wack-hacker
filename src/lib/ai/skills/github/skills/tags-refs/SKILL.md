@@ -3,7 +3,7 @@ name: tags-refs
 description: Manage git refs (branches and tags) — list, create, update, and delete.
 criteria: Use when the user wants to create/delete a branch or tag, or inspect refs via the git plumbing API.
 tools: [list_tags, list_refs, get_ref, create_ref, update_ref, delete_ref]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

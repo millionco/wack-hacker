@@ -3,7 +3,7 @@ name: blocks
 description: Read and modify individual Notion blocks — retrieve, update, archive, list children, and append.
 criteria: Use when the user wants fine-grained block manipulation on a Notion page (individual paragraphs, toggles, callouts) rather than replacing whole-page content.
 tools: [retrieve_block, update_block, delete_block, list_block_children, append_block_children]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

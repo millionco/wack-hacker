@@ -1,4 +1,3 @@
-import type { MessageCreatePacketType } from "../protocol/types.ts";
 import type {
   ChannelInfo,
   ThreadInfo,
@@ -7,7 +6,6 @@ import type {
   SerializedAgentContext,
 } from "./types.ts";
 
-import { DISCORD_IDS } from "../protocol/constants.ts";
 import { UserRole } from "./constants.ts";
 
 export type {
@@ -34,6 +32,9 @@ export class AgentContext {
   readonly recentMessages?: RecentMessage[];
   readonly recentMessagesFromThread?: boolean;
   readonly referencedContext?: RecentMessage[];
+  readonly platform: "discord" | "slack";
+  readonly resolvedRole?: UserRole;
+  readonly slackThreadId?: string;
 
   private constructor(data: SerializedAgentContext) {
     this.userId = data.userId;
@@ -51,74 +52,45 @@ export class AgentContext {
     this.recentMessages = data.recentMessages;
     this.recentMessagesFromThread = data.recentMessagesFromThread;
     this.referencedContext = data.referencedContext;
-  }
-
-  /** Resolve Discord role IDs to an application-level access tier. */
-  get role(): UserRole {
-    if (!this.memberRoles) return UserRole.Public;
-    if (this.memberRoles.includes(DISCORD_IDS.roles.ADMIN)) return UserRole.Admin;
-    if (this.memberRoles.includes(DISCORD_IDS.roles.ORGANIZER)) return UserRole.Organizer;
-    return UserRole.Public;
+    this.platform = data.platform ?? "discord";
+    this.resolvedRole = data.resolvedRole;
+    this.slackThreadId = data.slackThreadId;
   }
 
   /**
-   * Build context from a Discord message packet.
-   *
-   * - `threadOverride`: supply when a thread was just created for this mention.
-   *   The packet still describes the parent channel; pass the new thread and
-   *   the context's `channel`/`thread` fields will reflect the thread instead.
-   * - `recentMessages`: attach the recent-messages block fetched separately.
-   * - `referencedContext`: attach a second lead-in block built from the
-   *   referenced message (when the mention was a reply) plus messages
-   *   preceding it.
+   * Application-level access tier. The Slack ingress resolves the tier up front
+   * (workspace admins/owners → admin, members → member) and stores it in
+   * `resolvedRole`.
    */
-  static fromPacket(
-    packet: MessageCreatePacketType,
-    options?: {
-      threadOverride?: { id: string; name: string };
-      recentMessages?: RecentMessage[];
-      referencedContext?: RecentMessage[];
-    },
-  ): AgentContext {
-    const { data } = packet;
-    const { threadOverride, recentMessages, referencedContext } = options ?? {};
+  get role(): UserRole {
+    return this.resolvedRole ?? UserRole.Public;
+  }
 
-    let channel: ChannelInfo;
-    let thread: ThreadInfo | undefined;
-
-    if (threadOverride) {
-      channel = { id: threadOverride.id, name: threadOverride.name };
-      thread = {
-        id: threadOverride.id,
-        name: threadOverride.name,
-        parentChannel: data.channel,
-      };
-    } else if (data.thread) {
-      channel = data.channel;
-      thread = {
-        id: data.channel.id,
-        name: data.channel.name,
-        parentChannel: { id: data.thread.parentId, name: data.thread.parentName },
-      };
-    } else {
-      channel = data.channel;
-      thread = undefined;
-    }
-
-    // recentMessages came from the thread iff the triggering packet was
-    // already in a thread AND we aren't synthesizing a newly-created one.
-    // When threadOverride is set, the thread was JUST created so any messages
-    // we fetched were pulled from the parent channel.
-    const recentMessagesFromThread =
-      recentMessages !== undefined && Boolean(data.thread) && !threadOverride;
-
+  /**
+   * Build context for a Slack turn. The Slack ingress has already resolved the
+   * user's role and gathered recent thread/channel messages via the Chat SDK.
+   */
+  static fromSlack(data: {
+    userId: string;
+    username: string;
+    channel: ChannelInfo;
+    thread?: ThreadInfo;
+    role: UserRole;
+    timezone?: string;
+    attachments?: Attachment[];
+    recentMessages?: RecentMessage[];
+    slackThreadId?: string;
+  }): AgentContext {
     const now = new Date();
     return new AgentContext({
-      userId: data.author.id,
-      username: data.author.username,
-      nickname: data.author.nickname ?? data.author.username,
-      channel,
-      thread,
+      userId: data.userId,
+      username: data.username,
+      nickname: data.username,
+      channel: data.channel,
+      thread: data.thread,
+      platform: "slack",
+      resolvedRole: data.role,
+      slackThreadId: data.slackThreadId,
       date: now.toLocaleDateString("en-US", {
         weekday: "long",
         year: "numeric",
@@ -126,19 +98,10 @@ export class AgentContext {
         day: "numeric",
       }),
       nowISO: now.toISOString(),
-      timezone: DEFAULT_TIMEZONE,
-      attachments:
-        data.attachments.length > 0
-          ? data.attachments.map((a) => ({
-              url: a.url,
-              filename: a.filename,
-              contentType: a.contentType,
-            }))
-          : undefined,
-      memberRoles: data.memberRoles ?? undefined,
-      recentMessages,
-      recentMessagesFromThread,
-      referencedContext,
+      timezone: data.timezone ?? DEFAULT_TIMEZONE,
+      attachments: data.attachments,
+      recentMessages: data.recentMessages,
+      recentMessagesFromThread: Boolean(data.thread),
     });
   }
 
@@ -161,6 +124,9 @@ export class AgentContext {
       recentMessages: this.recentMessages,
       recentMessagesFromThread: this.recentMessagesFromThread,
       referencedContext: this.referencedContext,
+      platform: this.platform,
+      resolvedRole: this.resolvedRole,
+      slackThreadId: this.slackThreadId,
     };
   }
 

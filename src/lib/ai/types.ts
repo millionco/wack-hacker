@@ -1,9 +1,9 @@
 import type { ToolSet, UIMessage } from "ai";
 import type { z } from "zod";
 
+import type { UserRole } from "./constants.ts";
 import type { AgentContext } from "./context.ts";
 import type { SkillBundle } from "./skills/types.ts";
-import type { TurnUsageTracker } from "./turn-usage.ts";
 
 export interface ChannelInfo {
   id: string;
@@ -41,6 +41,24 @@ export interface SerializedAgentContext {
   nickname: string;
   channel: ChannelInfo;
   thread?: ThreadInfo;
+  /**
+   * Chat platform this turn runs on. Defaults to `discord` when absent so
+   * legacy serialized contexts still deserialize. Controls platform-specific
+   * formatting hints and role resolution.
+   */
+  platform?: "discord" | "slack";
+  /**
+   * Pre-resolved access tier. The Slack ingress resolves the tier (workspace
+   * admin/owner → admin, team members → member) and stores it here. When set,
+   * `AgentContext.role` returns it directly.
+   */
+  resolvedRole?: UserRole;
+  /**
+   * Chat SDK thread id for Slack turns (`slack:<channel>:<thread_ts>`). Carried
+   * so platform-aware features (e.g. tool approval prompts) can post back into
+   * the originating Slack thread without re-deriving it.
+   */
+  slackThreadId?: string;
   date: string;
   /**
    * Current instant as UTC ISO 8601 — the moment the orchestrator was invoked
@@ -78,19 +96,6 @@ export interface SerializedAgentContext {
   referencedContext?: RecentMessage[];
 }
 
-export interface FooterMeta {
-  elapsedMs: number;
-  totalTokens: number | undefined;
-  toolCallCount: number;
-  stepCount: number;
-  /**
-   * Full OTEL trace id for the turn (32-char hex). Rendered into the footer as
-   * `Trace: <id>` so operators can paste it into Sentry to pull up the full
-   * agent trace for a specific Discord reply.
-   */
-  traceId?: string;
-}
-
 /**
  * Usage accounting for a single orchestrator turn. Captured from the AI SDK's
  * `result.totalUsage` plus the subagent metrics accumulator. Stored in the
@@ -119,39 +124,6 @@ export interface ModelInfo {
   provider: string;
   limit: { context: number; output: number };
   cost: { input: number; output: number };
-}
-
-export interface CategoryBreakdown {
-  label: string;
-  chars: number;
-  estimatedTokens: number;
-  /** Optional per-item breakdown (e.g. per-tool token counts within the Tools category). */
-  items?: CategoryItem[];
-}
-
-export interface CategoryItem {
-  name: string;
-  estimatedTokens: number;
-  /**
-   * Loadable subskills nested under this item — populated only for delegate
-   * agents (subskills load on demand inside the subagent via `load_skill`).
-   * Not counted toward the orchestrator's input total.
-   */
-  skills?: CategoryItem[];
-}
-
-export interface ContextBreakdown {
-  model: string;
-  modelInfo: ModelInfo | null;
-  categories: CategoryBreakdown[];
-  /** Sum of per-category estimatedTokens (chars/4). */
-  estimatedInputTokens: number;
-  /** Cumulative API usage across every turn this conversation has run. */
-  totalUsage: TurnUsage;
-  turnCount: number;
-  messageCount: number;
-  /** Cumulative dollar cost across every turn — modelInfo + usage required. */
-  totalCostUsd?: { input: number; output: number; total: number };
 }
 
 /**
@@ -189,6 +161,12 @@ export interface SubagentSpec {
   subSkills: Record<string, SkillBundle>;
   /** Tool names always visible to the subagent (base tools). */
   baseToolNames: readonly string[];
+  /**
+   * Environment variables this domain needs to do anything. The delegation
+   * tool checks these *before launching* the subagent and returns a clear
+   * error when any are missing, so a tool never runs without its credentials.
+   */
+  requiredEnv?: readonly string[];
   /** Override the default `SUBAGENT_MODEL` (e.g. Claude for coding). */
   model?: string;
   /** Override the default `stepCountIs(15)` cap. */
@@ -216,19 +194,6 @@ export interface SubagentSpec {
 }
 
 /**
- * Structural subset of the `ToolLoopAgent` interface that `streamTurn` uses —
- * scoped to just `.stream()` so tests can hand-roll a fake without pulling in
- * the AI SDK's full generic machinery.
- */
-export interface OrchestratorAgent {
-  stream(input: { messages: unknown[] }): Promise<{
-    fullStream: AsyncIterable<unknown>;
-    totalUsage: Promise<unknown>;
-    steps: Promise<unknown>;
-  }>;
-}
-
-/**
  * Telemetry metadata passed through to every AI SDK `experimental_telemetry.metadata`
  * call in an orchestrator + its subagents. Flat key/value pairs; the AI SDK
  * flattens these into `ai.telemetry.metadata.<key>` span attributes so Axiom
@@ -237,63 +202,3 @@ export interface OrchestratorAgent {
  * filtering them out.
  */
 export type TelemetryMetadata = Record<string, string | number | undefined>;
-
-/**
- * Factory signature for `createOrchestrator`. Exported so tests can inject a
- * fake through `streamTurn`'s options bag without mocking our own modules.
- */
-export type OrchestratorFactory = (
-  ctx: AgentContext,
-  tracker: TurnUsageTracker,
-  extraMetadata?: TelemetryMetadata,
-) => OrchestratorAgent;
-
-/**
- * Return shape of `streamTurn`. Carries the reply text + usage accounting
- * needed by the workflow, plus observability hooks (`discordMessageId`,
- * `model`) that let the run_turn step emit a complete wide event for each
- * turn without re-computing them.
- */
-export interface StreamTurnResult {
-  text: string;
-  usage: TurnUsage;
-  /**
-   * Primary Discord message id for the reply (either the edited placeholder
-   * or a fallback `createMessage`). Always a string because `streamTurn`
-   * runs `renderer.init()` before it can reach `finalize()`, and `finalize()`
-   * throws if that invariant is broken.
-   */
-  discordMessageId: string;
-  /**
-   * Full gateway model slug used by the orchestrator for this turn, e.g.
-   * `anthropic/claude-sonnet-4.6`. Included so the wide event records what
-   * actually ran, independent of whatever constant was read at build time.
-   */
-  model: string;
-}
-
-/**
- * Options bag for `streamTurn`. Split out so production callers don't need to
- * deal with the test-injection hooks.
- */
-export interface StreamTurnOptions {
-  /** Task ID to include in the message footer (e.g. for scheduled runs). */
-  taskId?: string;
-  /** Dependency-injected orchestrator factory; defaults to `createOrchestrator`. */
-  createAgent?: OrchestratorFactory;
-  /**
-   * Workflow run id for the containing chat workflow. Used to populate
-   * `chat.*` attributes on the turn span + every AI SDK span so a whole
-   * conversation is one Axiom query (`chat.id == <workflowRunId>`).
-   */
-  workflowRunId?: string;
-  /** Turn number within the conversation (1 = first turn). */
-  turnIndex?: number;
-  /**
-   * Pre-created "> Thinking..." placeholder id. When provided, the renderer
-   * edits this message instead of posting a new one. Used on the first turn
-   * of a fresh workflow — the mention handler posts the placeholder before
-   * enqueuing the workflow so it's visible ahead of workflow cold-start.
-   */
-  placeholderMessageId?: string;
-}

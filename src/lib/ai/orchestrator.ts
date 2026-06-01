@@ -7,8 +7,6 @@ import { wrapApprovalTools } from "./approvals/index.ts";
 import { ORCHESTRATOR_MODEL, SYSTEM_PROMPT } from "./constants.ts";
 import { AgentContext } from "./context.ts";
 import { buildDelegationTools } from "./delegates.ts";
-import { documentation } from "./tools/docs/index.ts";
-import { resolve_organizer } from "./tools/roster/index.ts";
 import { createScheduleTask, list_scheduled_tasks, cancel_task } from "./tools/schedule/index.ts";
 
 export { ORCHESTRATOR_MODEL, SYSTEM_PROMPT } from "./constants.ts";
@@ -29,8 +27,6 @@ export function getOrchestratorTools(
   extraMetadata?: TelemetryMetadata,
 ): ToolSet {
   const tools: ToolSet = {
-    documentation,
-    resolve_organizer,
     schedule_task: createScheduleTask(context),
     list_scheduled_tasks,
     cancel_task,
@@ -43,9 +39,13 @@ export function createOrchestrator(
   context: AgentContext,
   tracker: TurnUsageTracker,
   extraMetadata?: TelemetryMetadata,
+  options?: { systemPrompt?: string; extraTools?: ToolSet },
 ) {
-  const instructions = context.buildInstructions(SYSTEM_PROMPT);
-  const tools = getOrchestratorTools(context, tracker, extraMetadata);
+  const instructions = context.buildInstructions(options?.systemPrompt ?? SYSTEM_PROMPT);
+  const tools: ToolSet = {
+    ...getOrchestratorTools(context, tracker, extraMetadata),
+    ...options?.extraTools,
+  };
 
   return new ToolLoopAgent({
     model: ORCHESTRATOR_MODEL,

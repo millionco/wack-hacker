@@ -1,7 +1,7 @@
 ---
 name: code
-description: Autonomously make code changes to a Purdue Hackers repository in an isolated sandbox — edit files, run checks, iterate until verified
-criteria: When the user asks to fix a bug, implement a feature, refactor code, update configs, write tests, bump versions, or make any substantive change to a purduehackers repository
+description: Autonomously make code changes to a Million repository in an isolated sandbox — edit files, run checks, iterate until verified
+criteria: When the user asks to fix a bug, implement a feature, refactor code, update configs, write tests, bump versions, or make any substantive change to a millionco repository
 tools: []
 minRole: admin
 mode: delegate

@@ -60,7 +60,7 @@ export const assign_alias = approval(
     description: "Assign an alias (hostname) to a deployment.",
     inputSchema: z.object({
       deployment_id: z.string(),
-      alias: z.string().describe("The hostname to assign (e.g. 'staging.purduehackers.com')"),
+      alias: z.string().describe("The hostname to assign (e.g. 'staging.million.dev')"),
       redirect: z.string().optional(),
     }),
     execute: async ({ deployment_id, alias, redirect }) => {

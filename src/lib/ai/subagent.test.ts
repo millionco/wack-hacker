@@ -165,7 +165,7 @@ describe("createDelegationTool — extended SubagentSpec (input + context)", () 
         task: (await import("zod")).z.string(),
       }),
     };
-    await drainWith(spec, { repo: "purduehackers/x", task: "do the thing" });
+    await drainWith(spec, { repo: "millionco/x", task: "do the thing" });
 
     const call = model.doStreamCalls[0]!;
     const userMessage = call.prompt.find((m) => m.role === "user");

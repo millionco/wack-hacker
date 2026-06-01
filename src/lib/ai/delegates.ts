@@ -4,37 +4,41 @@ import type { AgentContext } from "./context.ts";
 import type { TurnUsageTracker } from "./turn-usage.ts";
 import type { SubagentSpec, TelemetryMetadata } from "./types.ts";
 
-import { SKILL_MANIFEST as CMS_SUBSKILLS } from "./skills/generated/domains/cms.ts";
+import { SKILL_MANIFEST as AXIOM_SUBSKILLS } from "./skills/generated/domains/axiom.ts";
+import { SKILL_MANIFEST as CLOUDFLARE_SUBSKILLS } from "./skills/generated/domains/cloudflare.ts";
 import { SKILL_MANIFEST as CODE_SUBSKILLS } from "./skills/generated/domains/code.ts";
-import { SKILL_MANIFEST as DISCORD_SUBSKILLS } from "./skills/generated/domains/discord.ts";
-import { SKILL_MANIFEST as FIGMA_SUBSKILLS } from "./skills/generated/domains/figma.ts";
-import { SKILL_MANIFEST as FINANCE_SUBSKILLS } from "./skills/generated/domains/finance.ts";
+import { SKILL_MANIFEST as EXA_SUBSKILLS } from "./skills/generated/domains/exa.ts";
 import { SKILL_MANIFEST as GITHUB_SUBSKILLS } from "./skills/generated/domains/github.ts";
 import { SKILL_MANIFEST as LINEAR_SUBSKILLS } from "./skills/generated/domains/linear.ts";
+import { SKILL_MANIFEST as MERCURY_SUBSKILLS } from "./skills/generated/domains/mercury.ts";
 import { SKILL_MANIFEST as NOTION_SUBSKILLS } from "./skills/generated/domains/notion.ts";
-import { SKILL_MANIFEST as SALES_SUBSKILLS } from "./skills/generated/domains/sales.ts";
+import { SKILL_MANIFEST as PLANETSCALE_SUBSKILLS } from "./skills/generated/domains/planetscale.ts";
+import { SKILL_MANIFEST as POSTHOG_SUBSKILLS } from "./skills/generated/domains/posthog.ts";
 import { SKILL_MANIFEST as SENTRY_SUBSKILLS } from "./skills/generated/domains/sentry.ts";
-import { SKILL_MANIFEST as SHOPPING_SUBSKILLS } from "./skills/generated/domains/shopping.ts";
+import { SKILL_MANIFEST as SLACK_SUBSKILLS } from "./skills/generated/domains/slack.ts";
+import { SKILL_MANIFEST as STRIPE_SUBSKILLS } from "./skills/generated/domains/stripe.ts";
 import { SKILL_MANIFEST as VERCEL_SUBSKILLS } from "./skills/generated/domains/vercel.ts";
 import { SKILL_MANIFEST } from "./skills/generated/manifest.ts";
 import { SkillRegistry } from "./skills/registry.ts";
 import { createDelegationTool } from "./subagent.ts";
-import * as cmsTools from "./tools/cms/index.ts";
+import * as axiomTools from "./tools/axiom/index.ts";
+import * as cloudflareTools from "./tools/cloudflare/index.ts";
 import {
   buildCodeExperimentalContext,
   codeDelegationInputSchema,
   codePostFinish,
 } from "./tools/code/delegation.ts";
 import * as codeTools from "./tools/code/index.ts";
-import * as discordTools from "./tools/discord/index.ts";
-import * as figmaTools from "./tools/figma/index.ts";
-import * as financeTools from "./tools/finance/index.ts";
+import * as exaTools from "./tools/exa/index.ts";
 import * as githubTools from "./tools/github/index.ts";
 import * as linearTools from "./tools/linear/index.ts";
+import * as mercuryTools from "./tools/mercury/index.ts";
 import * as notionTools from "./tools/notion/index.ts";
-import * as salesTools from "./tools/sales/index.ts";
+import * as planetscaleTools from "./tools/planetscale/index.ts";
+import * as posthogTools from "./tools/posthog/index.ts";
 import * as sentryTools from "./tools/sentry/index.ts";
-import * as shoppingTools from "./tools/shopping/index.ts";
+import * as slackTools from "./tools/slack/index.ts";
+import * as stripeTools from "./tools/stripe/index.ts";
 import * as vercelTools from "./tools/vercel/index.ts";
 
 const DELEGATE_PREFIX = "delegate_";
@@ -56,54 +60,42 @@ const DOMAINS = {
       "suggest_property_values",
       "aggregate_issues",
     ],
+    requiredEnv: ["LINEAR_API_KEY"],
   },
   github: {
     tools: githubTools as unknown as ToolSet,
     subSkills: GITHUB_SUBSKILLS,
     baseToolNames: ["list_repositories", "get_repository", "search_code", "search_issues"],
+    requiredEnv: [
+      "GITHUB_APP_ID",
+      "GITHUB_APP_PRIVATE_KEY",
+      "GITHUB_APP_INSTALLATION_ID",
+      "GITHUB_ORG",
+    ],
   },
-  discord: {
-    tools: discordTools as unknown as ToolSet,
-    subSkills: DISCORD_SUBSKILLS,
-    baseToolNames: ["get_server_info", "list_channels", "list_roles", "search_members"],
-  },
-  figma: {
-    tools: figmaTools as unknown as ToolSet,
-    subSkills: FIGMA_SUBSKILLS,
-    baseToolNames: ["get_file", "list_projects", "list_project_files", "search_files"],
+  slack: {
+    tools: slackTools as unknown as ToolSet,
+    subSkills: SLACK_SUBSKILLS,
+    baseToolNames: [
+      "slack_get_workspace",
+      "slack_list_channels",
+      "slack_check_channel_access",
+      "slack_get_channel",
+      "slack_resolve_user",
+    ],
+    requiredEnv: [],
   },
   notion: {
     tools: notionTools as unknown as ToolSet,
     subSkills: NOTION_SUBSKILLS,
     baseToolNames: ["search_notion", "retrieve_page", "retrieve_database", "list_users"],
+    requiredEnv: ["NOTION_TOKEN"],
   },
   sentry: {
     tools: sentryTools as unknown as ToolSet,
     subSkills: SENTRY_SUBSKILLS,
     baseToolNames: ["list_projects", "get_project", "search_issues", "get_issue"],
-  },
-  finance: {
-    tools: financeTools as unknown as ToolSet,
-    subSkills: FINANCE_SUBSKILLS,
-    baseToolNames: ["get_organization", "get_balance", "list_transactions", "get_transaction"],
-  },
-  shopping: {
-    tools: shoppingTools as unknown as ToolSet,
-    subSkills: SHOPPING_SUBSKILLS,
-    baseToolNames: ["search_products", "view_cart"],
-  },
-  sales: {
-    tools: salesTools as unknown as ToolSet,
-    subSkills: SALES_SUBSKILLS,
-    baseToolNames: [
-      "list_companies",
-      "list_contacts",
-      "list_deals",
-      "get_company",
-      "get_contact",
-      "get_deal",
-      "retrieve_crm_schema",
-    ],
+    requiredEnv: ["SENTRY_AUTH_TOKEN", "SENTRY_ORG"],
   },
   vercel: {
     tools: vercelTools as unknown as ToolSet,
@@ -118,26 +110,74 @@ const DOMAINS = {
       "whoami",
       "list_teams",
     ],
+    requiredEnv: ["VERCEL_API_TOKEN", "VERCEL_TEAM_ID"],
   },
   code: {
     tools: codeTools as unknown as ToolSet,
     subSkills: CODE_SUBSKILLS,
     baseToolNames: ["read", "grep", "glob", "list_dir", "todo_write"],
-  },
-  cms: {
-    tools: cmsTools as unknown as ToolSet,
-    subSkills: CMS_SUBSKILLS,
-    baseToolNames: [
-      "list_events",
-      "list_hack_night_sessions",
-      "list_ugrants",
-      "list_shelter_projects",
-      "list_media",
+    requiredEnv: [
+      "GITHUB_APP_ID",
+      "GITHUB_APP_PRIVATE_KEY",
+      "GITHUB_APP_INSTALLATION_ID",
+      "GITHUB_ORG",
     ],
+  },
+  stripe: {
+    tools: stripeTools as unknown as ToolSet,
+    subSkills: STRIPE_SUBSKILLS,
+    baseToolNames: [
+      "stripe_search_customers",
+      "stripe_get_customer",
+      "stripe_get_balance",
+      "stripe_list_recent_events",
+    ],
+    requiredEnv: ["STRIPE_API_KEY"],
+  },
+  posthog: {
+    tools: posthogTools as unknown as ToolSet,
+    subSkills: POSTHOG_SUBSKILLS,
+    baseToolNames: ["posthog_list_projects", "posthog_list_insights", "posthog_list_feature_flags"],
+    requiredEnv: ["POSTHOG_API_KEY"],
+  },
+  mercury: {
+    tools: mercuryTools as unknown as ToolSet,
+    subSkills: MERCURY_SUBSKILLS,
+    baseToolNames: ["mercury_list_accounts", "mercury_get_account", "mercury_list_transactions"],
+    requiredEnv: ["MERCURY_API_TOKEN"],
+  },
+  axiom: {
+    tools: axiomTools as unknown as ToolSet,
+    subSkills: AXIOM_SUBSKILLS,
+    baseToolNames: ["axiom_list_datasets", "axiom_query"],
+    requiredEnv: ["AXIOM_API_TOKEN"],
+  },
+  cloudflare: {
+    tools: cloudflareTools as unknown as ToolSet,
+    subSkills: CLOUDFLARE_SUBSKILLS,
+    baseToolNames: ["cloudflare_list_zones", "cloudflare_list_dns_records"],
+    requiredEnv: ["CLOUDFLARE_API_TOKEN"],
+  },
+  planetscale: {
+    tools: planetscaleTools as unknown as ToolSet,
+    subSkills: PLANETSCALE_SUBSKILLS,
+    baseToolNames: ["planetscale_list_databases", "planetscale_list_branches"],
+    requiredEnv: ["PLANETSCALE_SERVICE_TOKEN_ID", "PLANETSCALE_SERVICE_TOKEN"],
+  },
+  exa: {
+    tools: exaTools as unknown as ToolSet,
+    subSkills: EXA_SUBSKILLS,
+    baseToolNames: ["exa_search", "exa_get_contents"],
+    requiredEnv: ["EXA_API_KEY"],
   },
 } as const satisfies Record<
   string,
-  { tools: ToolSet; subSkills: unknown; baseToolNames: readonly string[] }
+  {
+    tools: ToolSet;
+    subSkills: unknown;
+    baseToolNames: readonly string[];
+    requiredEnv: readonly string[];
+  }
 >;
 
 /**

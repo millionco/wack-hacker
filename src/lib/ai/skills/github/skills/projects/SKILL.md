@@ -11,7 +11,7 @@ tools:
     update_project_item,
     delete_project_item,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

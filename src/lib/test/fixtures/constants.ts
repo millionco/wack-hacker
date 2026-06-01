@@ -17,7 +17,7 @@ export const TEST_SKILLS: Record<string, SkillBundle> = {
     description: "Manage Linear issues",
     criteria: "When user asks about issues",
     toolNames: ["searchIssues", "createIssue"],
-    minRole: UserRole.Organizer,
+    minRole: UserRole.Member,
     mode: "delegate",
     instructions: "You are a Linear agent.",
   },

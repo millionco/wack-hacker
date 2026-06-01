@@ -3,7 +3,7 @@ name: initiatives
 description: Create/update initiatives; query initiative activity and history.
 criteria: Use when the user wants to create/update an initiative or inspect its history.
 tools: [create_initiative, update_initiative, list_initiatives, query_initiative_activity]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

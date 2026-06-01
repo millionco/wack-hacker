@@ -12,7 +12,7 @@ tools:
     list_metric_alert_rules,
     get_metric_alert_rule,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

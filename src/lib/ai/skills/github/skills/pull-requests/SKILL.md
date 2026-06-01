@@ -15,7 +15,7 @@ tools:
     list_pr_files,
     list_pr_comments,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

@@ -3,7 +3,7 @@ name: project-updates
 description: Query, create, and update project status updates.
 criteria: Use when the user wants to post, edit, or read project status updates.
 tools: [query_project_updates, create_project_update, update_project_update]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

@@ -30,8 +30,8 @@ describe("createLoadSkillTool", () => {
     expect(result).toContain('Unknown skill "nonexistent"');
   });
 
-  it("organizer can load organizer-level skill", async () => {
-    const tool = createLoadSkillTool(registry, UserRole.Organizer);
+  it("member can load member-level skill", async () => {
+    const tool = createLoadSkillTool(registry, UserRole.Member);
     const result = await tool.execute!({ name: "linear" }, {} as never);
     expect(result).toContain('<skill name="linear">');
     expect(result).toContain("You are a Linear agent.");

@@ -3,7 +3,7 @@ name: reminders
 description: Set a reminder for the current user on an issue, document, project, or initiative.
 criteria: Use when the user wants to set a reminder or be nudged about something.
 tools: [set_reminder]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

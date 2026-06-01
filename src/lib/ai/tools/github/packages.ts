@@ -10,7 +10,7 @@ const packageTypeSchema = z.enum(["npm", "maven", "rubygems", "docker", "nuget",
 
 /** List packages in the organization. */
 export const list_packages = tool({
-  description: `List packages in the purduehackers organization filtered by package type (npm, docker, container, etc.). Returns each package's ID, name, type, visibility, URL, and timestamps.`,
+  description: `List packages in the millionco organization filtered by package type (npm, docker, container, etc.). Returns each package's ID, name, type, visibility, URL, and timestamps.`,
   inputSchema: z.object({
     package_type: packageTypeSchema.describe("Package type"),
     ...paginationInputShape,
@@ -38,7 +38,7 @@ export const list_packages = tool({
 
 /** Get details for a specific package. */
 export const get_package = tool({
-  description: `Get detailed information about a specific package in the purduehackers organization, including its ID, name, type, visibility, URL, and timestamps.`,
+  description: `Get detailed information about a specific package in the millionco organization, including its ID, name, type, visibility, URL, and timestamps.`,
   inputSchema: z.object({
     package_type: packageTypeSchema,
     package_name: z.string().describe("Package name"),
@@ -63,7 +63,7 @@ export const get_package = tool({
 
 /** List versions of a package. */
 export const list_package_versions = tool({
-  description: `List all versions of a package in the purduehackers organization. Returns each version's ID, name (tag), timestamps, URL, and metadata.`,
+  description: `List all versions of a package in the millionco organization. Returns each version's ID, name (tag), timestamps, URL, and metadata.`,
   inputSchema: z.object({
     package_type: packageTypeSchema,
     package_name: z.string().describe("Package name"),
@@ -93,7 +93,7 @@ export const list_package_versions = tool({
 /** Delete a specific package version. */
 export const delete_package_version = approval(
   tool({
-    description: `Delete a specific version of a package from the purduehackers organization. This action is irreversible. You need the package version ID (get it from list_package_versions).`,
+    description: `Delete a specific version of a package from the millionco organization. This action is irreversible. You need the package version ID (get it from list_package_versions).`,
     inputSchema: z.object({
       package_type: packageTypeSchema,
       package_name: z.string().describe("Package name"),

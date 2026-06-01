@@ -16,8 +16,8 @@ vi.mock("./client.ts", () => ({
 
 vi.mock("./constants.ts", () => ({
   VERCEL_TEAM_ID: "team_test",
-  VERCEL_TEAM_SLUG: "purduehackers",
-  VERCEL_DASHBOARD_BASE: "https://vercel.com/purduehackers",
+  VERCEL_TEAM_SLUG: "millionco",
+  VERCEL_DASHBOARD_BASE: "https://vercel.com/millionco",
 }));
 
 const { whoami, list_teams, list_user_events, list_event_types } = await import("./account.ts");
@@ -32,7 +32,7 @@ describe("whoami", () => {
     const raw = await whoami.execute!({}, toolOpts);
     const out = JSON.parse(raw as string);
     expect(out.user.user.username).toBe("ray");
-    expect(out.team).toEqual({ id: "team_test", slug: "purduehackers" });
+    expect(out.team).toEqual({ id: "team_test", slug: "millionco" });
   });
 });
 
@@ -51,7 +51,7 @@ describe("list_user_events", () => {
     expect(listUserEvents).toHaveBeenCalledWith(
       expect.objectContaining({
         teamId: "team_test",
-        slug: "purduehackers",
+        slug: "millionco",
         types: "deployment-ready",
         limit: 10,
       }),
@@ -63,6 +63,6 @@ describe("list_event_types", () => {
   it("scopes to the active team", async () => {
     listEventTypes.mockResolvedValueOnce({ types: [] });
     await list_event_types.execute!({}, toolOpts);
-    expect(listEventTypes).toHaveBeenCalledWith({ teamId: "team_test", slug: "purduehackers" });
+    expect(listEventTypes).toHaveBeenCalledWith({ teamId: "team_test", slug: "millionco" });
   });
 });

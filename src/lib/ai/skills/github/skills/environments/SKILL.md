@@ -3,7 +3,7 @@ name: environments
 description: Manage deployment environments — protection rules, wait timers, required reviewers.
 criteria: Use when the user wants to create/update/delete a deployment environment or view its protection rules.
 tools: [list_environments, get_environment, create_or_update_environment, delete_environment]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

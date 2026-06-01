@@ -14,7 +14,7 @@ function makeCtx(
 ): CodingSandboxContext {
   return {
     sandbox,
-    repo: "purduehackers/x",
+    repo: "millionco/x",
     branch: "wack-hacker/a",
     repoDir: "/vercel/sandbox",
     threadKey: "T1",

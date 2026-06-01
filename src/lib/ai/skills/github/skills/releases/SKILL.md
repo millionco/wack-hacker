@@ -4,7 +4,7 @@ description: Manage GitHub releases — list, create, update, and delete release
 criteria: Use when the user wants to list, view, create, update, or delete a GitHub release, or inspect its assets.
 tools:
   [list_releases, get_release, create_release, update_release, delete_release, list_release_assets]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

@@ -16,7 +16,7 @@ tools:
     rollback_deployment,
     update_rollback_description,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

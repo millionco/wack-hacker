@@ -3,7 +3,7 @@ name: monitors
 description: Manage cron monitors — view schedules, check-in history, and configure runtime limits.
 criteria: Use when the user asks about cron jobs, scheduled tasks, monitors, missed check-ins, or job failures.
 tools: [list_monitors, get_monitor, list_monitor_checkins, update_monitor, delete_monitor]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

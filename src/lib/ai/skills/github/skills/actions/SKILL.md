@@ -13,7 +13,7 @@ tools:
     list_workflow_jobs,
     download_artifact,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

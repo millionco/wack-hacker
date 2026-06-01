@@ -3,7 +3,7 @@ name: events
 description: List and inspect error events, stack traces, and breadcrumbs.
 criteria: Use when the user wants to see error details, stack traces, event history, or breadcrumbs.
 tools: [list_issue_events, get_event, get_latest_event, list_project_events]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

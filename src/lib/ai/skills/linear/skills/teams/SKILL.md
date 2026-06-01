@@ -3,7 +3,7 @@ name: teams
 description: List team members and manage team membership.
 criteria: Use when the user wants to see who is on a team, add a user to a team, or remove a user from a team.
 tools: [list_team_members, add_user_to_team, remove_user_from_team]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

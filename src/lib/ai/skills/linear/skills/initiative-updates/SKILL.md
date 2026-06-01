@@ -3,7 +3,7 @@ name: initiative-updates
 description: Query, create, and update initiative status updates.
 criteria: Use for cross-project status reporting on an initiative.
 tools: [query_initiative_updates, create_initiative_update, update_initiative_update]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

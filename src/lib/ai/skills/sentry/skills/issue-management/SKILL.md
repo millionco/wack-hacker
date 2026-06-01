@@ -12,7 +12,7 @@ tools:
     list_issue_tags,
     get_issue_tag_values,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 
