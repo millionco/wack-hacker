@@ -3,7 +3,7 @@ name: traces
 description: View distributed traces — full request waterfalls across services.
 criteria: Use when the user asks about traces, distributed tracing, request waterfalls, or wants to follow a request across services.
 tools: [get_trace, list_traces]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

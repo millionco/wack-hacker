@@ -5,10 +5,10 @@ import { env } from "../../../../env.ts";
 import { paginationInputShape } from "../_shared/constants.ts";
 import { octokit } from "./client.ts";
 
-/** List repositories in the purduehackers organization with optional filters. */
+/** List repositories in the millionco organization with optional filters. */
 export const list_repositories = tool({
   description:
-    "List repositories in the purduehackers org. Returns name, description, language, URL, and activity dates. Supports filtering by type and sorting.",
+    "List repositories in the millionco org. Returns name, description, language, URL, and activity dates. Supports filtering by type and sorting.",
   inputSchema: z.object({
     type: z.enum(["all", "public", "private", "forks", "sources", "member"]).optional(),
     sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
@@ -77,10 +77,10 @@ export const get_repository = tool({
   },
 });
 
-/** Search code across all purduehackers repos using grep.app for fast, accurate results with snippets. */
+/** Search code across all millionco repos using grep.app for fast, accurate results with snippets. */
 export const search_code = tool({
   description:
-    "Search code across purduehackers repositories using grep.app. Returns matching file paths, code snippets with line numbers, and repository info. Supports language and path filters.",
+    "Search code across millionco repositories using grep.app. Returns matching file paths, code snippets with line numbers, and repository info. Supports language and path filters.",
   inputSchema: z.object({
     query: z.string().describe("Code search query (e.g. 'useState', 'import express')"),
     language: z
@@ -90,14 +90,14 @@ export const search_code = tool({
     repo: z
       .string()
       .optional()
-      .describe("Specific repo in owner/repo format (e.g. 'purduehackers/my-repo')"),
+      .describe("Specific repo in owner/repo format (e.g. 'millionco/my-repo')"),
     path: z.string().optional().describe("Directory path filter (e.g. 'src/components')"),
   }),
   execute: async ({ query, language, repo, path }) => {
     const params = new URLSearchParams({ q: query });
     if (language) params.set("f.lang", language);
     if (repo) params.set("f.repo", repo);
-    else params.set("f.repo", `purduehackers`);
+    else params.set("f.repo", env.GITHUB_ORG);
     if (path) params.set("f.path", path);
 
     const response = await fetch(`https://grep.app/api/search?${params}`, {
@@ -141,10 +141,10 @@ export const search_code = tool({
   },
 });
 
-/** Search issues and pull requests across purduehackers repositories. */
+/** Search issues and pull requests across millionco repositories. */
 export const search_issues = tool({
   description:
-    "Search issues and pull requests across purduehackers repos. Supports GitHub search qualifiers like 'is:open', 'is:pr', 'label:bug', 'is:merged'. Returns number, title, state, URL, labels, and dates.",
+    "Search issues and pull requests across millionco repos. Supports GitHub search qualifiers like 'is:open', 'is:pr', 'label:bug', 'is:merged'. Returns number, title, state, URL, labels, and dates.",
   inputSchema: z.object({
     query: z
       .string()

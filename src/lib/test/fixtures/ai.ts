@@ -5,26 +5,22 @@ import { tool } from "ai";
 import { MockLanguageModelV3, MockProviderV3, simulateReadableStream } from "ai/test";
 import { z } from "zod";
 
-import { UserRole } from "@/lib/ai/constants";
-import { AgentContext } from "@/lib/ai/context";
-import { DISCORD_IDS } from "@/lib/protocol/constants";
+import type { UserRole } from "@/lib/ai/constants";
 
-import { messagePacket } from "./packets";
+import { AgentContext } from "@/lib/ai/context";
 
 /**
- * Build an `AgentContext` whose `role` resolves to the requested tier by
- * populating `memberRoles` with the matching Discord role ID. Consolidates
- * the duplicate helpers that delegate/subagent/schedule tests used to
- * hand-roll.
+ * Build a Slack `AgentContext` whose `role` resolves to the requested tier.
+ * Consolidates the duplicate helpers that delegate/subagent/schedule tests
+ * used to hand-roll.
  */
 export function contextForRole(role: UserRole): AgentContext {
-  const memberRoles =
-    role === UserRole.Admin
-      ? [DISCORD_IDS.roles.ADMIN]
-      : role === UserRole.Organizer
-        ? [DISCORD_IDS.roles.ORGANIZER]
-        : [];
-  return AgentContext.fromPacket(messagePacket("hello", { memberRoles }));
+  return AgentContext.fromSlack({
+    userId: "U_TEST",
+    username: "tester",
+    channel: { id: "C_TEST", name: "test" },
+    role,
+  });
 }
 
 /** No-op AI SDK tool that returns its name when invoked. */

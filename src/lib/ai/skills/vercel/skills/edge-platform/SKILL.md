@@ -39,7 +39,7 @@ tools:
     create_sdk_key,
     delete_sdk_key,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

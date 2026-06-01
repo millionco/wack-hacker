@@ -11,7 +11,7 @@ tools:
     create_deploy,
     list_release_commits,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

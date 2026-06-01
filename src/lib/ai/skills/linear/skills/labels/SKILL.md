@@ -3,7 +3,7 @@ name: labels
 description: List, create, update, and delete Linear issue labels.
 criteria: Use when the user wants to manage Linear labels — creating, renaming, recoloring, or deleting them, or scoping labels to a team.
 tools: [list_labels, get_label, create_label, update_label, delete_label]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

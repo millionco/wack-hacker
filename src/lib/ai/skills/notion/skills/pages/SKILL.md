@@ -13,7 +13,7 @@ tools:
     retrieve_user,
     retrieve_bot_user,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

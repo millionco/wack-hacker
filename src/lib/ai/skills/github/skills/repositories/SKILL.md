@@ -14,7 +14,7 @@ tools:
     set_branch_protection,
     delete_branch_protection,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

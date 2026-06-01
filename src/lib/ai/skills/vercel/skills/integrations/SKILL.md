@@ -17,7 +17,7 @@ tools:
     list_git_namespaces,
     search_git_repos,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

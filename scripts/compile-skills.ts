@@ -9,7 +9,7 @@ const OUTPUT_DIR = join(SKILLS_DIR, "generated");
 
 const ROLE_MAP: Record<string, string> = {
   public: "UserRole.Public",
-  organizer: "UserRole.Organizer",
+  member: "UserRole.Member",
   admin: "UserRole.Admin",
 };
 

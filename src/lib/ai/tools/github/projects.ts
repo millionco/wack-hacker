@@ -7,7 +7,7 @@ import { octokit } from "./client.ts";
 
 /** List GitHub Projects v2 in the organization. */
 export const list_org_projects = tool({
-  description: `List GitHub Projects v2 in the purduehackers organization. Returns each project's node ID, title, number, URL, closed status, and description. Supports cursor-based pagination.`,
+  description: `List GitHub Projects v2 in the millionco organization. Returns each project's node ID, title, number, URL, closed status, and description. Supports cursor-based pagination.`,
   inputSchema: z.object({
     first: z.number().max(50).optional().describe("Number of projects to fetch (max 50)"),
     after: z.string().optional().describe("Cursor for pagination"),

@@ -1,6 +1,6 @@
-import { vi, type Mock } from "vitest";
+import { vi } from "vitest";
 
-import type { NotionClientMocks, PayloadSDKMocks } from "../types";
+import type { NotionClientMocks } from "../types";
 
 /**
  * Shared class builders for stubbing third-party SDKs. Keep SDK-shape
@@ -44,36 +44,6 @@ export function notionClientClass(mocks: NotionClientMocks = {}) {
   };
 }
 
-/** Build a Resend mock class. Call inside `vi.mock("resend", ...)`. */
-export function resendClass(mocks: { send?: Mock } = {}) {
-  return class MockResend {
-    emails = { send: mocks.send ?? vi.fn() };
-  };
-}
-
-/**
- * Build a `@payloadcms/sdk` `PayloadSDK` mock class. Call inside
- * `vi.mock("@payloadcms/sdk", ...)` alongside a stub `PayloadSDKError` if the
- * test needs to construct one.
- */
-export function payloadSDKClass(mocks: PayloadSDKMocks = {}) {
-  return class MockPayloadSDK {
-    baseURL: string;
-    baseInit: RequestInit;
-    find = mocks.find ?? vi.fn();
-    findByID = mocks.findByID ?? vi.fn();
-    create = mocks.create ?? vi.fn();
-    update = mocks.update ?? vi.fn();
-    delete = mocks.delete ?? vi.fn();
-    count = mocks.count ?? vi.fn();
-
-    constructor(args: { baseURL: string; baseInit?: RequestInit }) {
-      this.baseURL = args.baseURL;
-      this.baseInit = args.baseInit ?? {};
-    }
-  };
-}
-
 /** Build a Linear SDK mock class. Call inside `vi.mock("@linear/sdk", ...)`. */
 export function linearClientClass() {
   return class MockLinearClient {
@@ -95,27 +65,4 @@ export function octokitClass() {
       search: { code: vi.fn(), issuesAndPullRequests: vi.fn() },
     };
   };
-}
-
-/** Build a `@discordjs/rest` REST mock class with a no-op `setToken`. */
-export function discordRESTClass() {
-  return class MockREST {
-    setToken(_: string) {
-      return this;
-    }
-  };
-}
-
-/** Svix `Webhook` + `WebhookVerificationError` stubs. Call inside `vi.mock("svix", ...)`. */
-export function svixMocks(mocks: { verify?: Mock } = {}) {
-  const verify = mocks.verify ?? vi.fn();
-
-  class WebhookVerificationError extends Error {}
-  class Webhook {
-    verify(body: string, headers: Record<string, string>) {
-      return verify(body, headers);
-    }
-  }
-
-  return { Webhook, WebhookVerificationError };
 }

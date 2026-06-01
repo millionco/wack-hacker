@@ -1,54 +1,72 @@
-# Wack Hacker
+# Pookie
 
-AI-powered Discord bot for [Purdue Hackers](https://purduehackers.com). Wack Hacker coordinates specialized subagents to manage many of our resources from Discord threads.
+AI-powered **Slack** bot for [Million](https://million.dev). Pookie coordinates specialized subagents to operate the services Million runs on, directly from Slack threads. Built on an orchestrator + skill-gated delegate subagent architecture with [Chat SDK](https://www.npmjs.com/package/chat) for Slack transport.
 
-- **Talk to your tools.** @mention the bot in any thread to read and act on the services we use without leaving Discord.
-- **Multi-turn memory.** Conversations persist across messages, restarts, and deploys, so you can come back to a thread hours later and pick up where you left off.
-- **Full Discord surface.** First-class support for gateway events, slash commands, message components, and cron jobs — write a handler, register it, ship it.
-- **Scheduling.** Ask the bot to remind you, post on a schedule, or run a task once at a specific time. Recurring jobs survive redeploys.
-- **Role-aware capabilities.** Public users get safe read tools; organizers unlock writes across our stack; admins get destructive operations. Permissions follow your Discord role.
+- **Talk to your tools.** @mention Pookie in any channel it's in, or DM it. Pull it into a thread and it keeps up with the conversation.
+- **Native Slack streaming.** Replies stream token-by-token via Slack's streaming API; conversation history persists per thread in the Chat SDK state store.
+- **Personality.** Pookie ships with three registers (`balanced` default, plus `cute`/`professional`) and a pet mode (`uwu`/`owo`/`meow`).
+- **Scheduling.** Ask Pookie to remind you or post on a schedule; recurring jobs survive redeploys (Turso + Vercel Queue).
+- **Role-aware + approvals.** Workspace members get read + safe tools; risky writes (posting, money movement, infra) require a Slack approval button. Slack admins/owners unlock admin operations.
 
 ### Domains
 
-Subagents are grouped by what they touch, not by how they're wired up. Organizer role unlocks everything except `delegate_code`, which is admin-only.
+Each domain is a delegate subagent with progressive `SKILL.md` disclosure. `repogrep` is a flat orchestrator tool (like `documentation`).
 
-**Communication & knowledge**
+**Slack & knowledge**
 
-- **Discord** — channels, threads, messages, members, roles, emojis, webhooks, scheduled events.
-- **Notion** — read and write pages, query and update databases, post and resolve comments.
-- **Documentation** — search and quote from [ask.purduehackers.com](https://ask.purduehackers.com) for questions grounded in Purdue Hackers' own docs.
+- **Slack** — workspace search, channel history, threads, files, canvases, reactions, channel management, users/usergroups/emoji.
+- **Notion** — read/write pages, query/update databases, comments.
 
 **Engineering**
 
-- **GitHub** — repositories, issues, PRs, file contents, workflows, deployments, packages, projects, secrets, org settings.
-- **Linear** — issues, views, projects, initiatives, updates, documents, reminders, customer requests, users.
+- **GitHub** — repos, issues, PRs, file contents, workflows, deployments, packages, projects.
+- **Linear** — issues, views, projects, initiatives, updates, documents, users.
 - **Sentry** — error monitoring, events, stack traces, releases, alerts.
-- **Vercel** — projects, deployments, runtime logs, env vars, domains, edge config, feature flags, rolling releases, marketplace integrations (Turso/Upstash/Neon), sandboxes, firewall.
-- **Figma** — files, components, styles, design tokens, variables, comments, dev resources.
-- **Code** (admin-only) — autonomous coding agent that runs inside a Vercel Sandbox against a `purduehackers/*` repo, makes changes on a feature branch, runs checks, and opens a PR.
+- **Vercel** — projects, deployments, runtime logs, env vars, domains, edge config, feature flags, rollouts, sandboxes, firewall.
+- **Code** (admin-only) — autonomous coding agent in a Vercel Sandbox that opens a PR.
 
-**Operations**
+**Vendored Million integrations** (native tools, not MCP)
 
-- **Finance** — read-only Hack Club Bank lookups: balances, transactions, donations, invoices, card spend.
-- **Shopping** — Amazon product search and a shared virtual cart/wishlist.
-- **Sales** — Notion CRM (Companies/Contacts/Deals), Hunter.io email finder, Resend outreach send/tracking.
-- **CMS** — Payload CMS at [cms.purduehackers.com](https://cms.purduehackers.com): events, RSVPs, hack-night sessions, email campaigns, media, microgrants, shelter projects, users.
+- **Stripe** — customers, subscriptions, invoices, balance, events; refunds/cancellations behind approval.
+- **Mercury** — accounts, balances, transactions (read-only).
+- **PostHog** — insights, feature flags, HogQL queries.
+- **Axiom** — datasets + APL log/trace queries.
+- **Cloudflare** — zones, DNS, Workers, cache purge.
+- **PlanetScale** — databases, branches, deploy requests.
+- **Exa** — web + docs research with citations.
+- **Repogrep** — search public GitHub repos/code (via Repogrep's MCP endpoint).
 
-Built on [Next.js](https://nextjs.org) App Router + [Hono](https://hono.dev) (via `hono/vercel`), [AI SDK](https://ai-sdk.dev) v6, and [Workflow DevKit](https://useworkflow.dev). Deployed on Vercel with Fluid Compute.
+Built on [Next.js](https://nextjs.org) App Router + [Hono](https://hono.dev), [Chat SDK](https://www.npmjs.com/package/chat) + [`@chat-adapter/slack`](https://www.npmjs.com/package/@chat-adapter/slack), [AI SDK](https://ai-sdk.dev) v6, and [Workflow DevKit](https://useworkflow.dev). Deployed on Vercel with Fluid Compute.
+
+> Every integration's credentials are optional: a domain's subagent refuses to launch (with a clear message) when its required env vars are missing, so a deploy only needs the keys for the domains it actually uses.
 
 ## Setup
 
 ### Prerequisites
 
 - [Bun](https://bun.com) >= 1.3.10
+- A Slack app (create one from the generated manifest, below)
+- Redis (`REDIS_URL`) for Chat SDK state + an Upstash REST KV (`KV_REST_API_*`) for the conversation/approval stores
+
+### Create the Slack app
+
+Generate the app manifest and open the prefilled "create app" URL:
+
+```bash
+BASE_URL=https://your-deployment.example.com bun scripts/slack-manifest.ts
+```
+
+Paste the manifest at [api.slack.com/apps](https://api.slack.com/apps), install it, then set the env vars below. The manifest points Slack's **Event Subscriptions** and **Interactivity** request URLs at `{BASE_URL}/api/webhooks/slack`, and OAuth at `{BASE_URL}/api/slack/oauth`.
 
 ### Environment
 
-```bash
-bunx vercel env pull --yes
-```
+Key Slack vars (validated by [`src/env.ts`](src/env.ts)):
 
-Env is validated by [`src/env.ts`](src/env.ts) using `@t3-oss/env-core`.
+- `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET` — single-workspace install.
+- `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET` — multi-workspace OAuth (optional).
+- `SLACK_USER_TOKEN` — enables workspace search (`slack_search`) on single-workspace installs.
+- `REDIS_URL`, `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `TURSO_*` — state, stores, scheduling.
+- Vendored integrations: `STRIPE_API_KEY`, `MERCURY_API_TOKEN`, `POSTHOG_API_KEY`/`POSTHOG_PROJECT_ID`, `AXIOM_API_TOKEN`, `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID`, `PLANETSCALE_SERVICE_TOKEN_ID`/`PLANETSCALE_SERVICE_TOKEN`/`PLANETSCALE_ORG`, `EXA_API_KEY`. Each is optional — its tools error clearly at call time when unset.
 
 ### Development
 
@@ -57,34 +75,17 @@ bun install
 bun dev
 ```
 
-Next.js dev server runs at `http://localhost:3000`. To take traffic you need to either:
-
-- Hit `GET /api/discord/gateway` to spin up the discord.js gateway listener (it will publish packets to the `discord-events` queue, consumed by `/api/discord/events`), or
-- Point Discord's **Interactions Endpoint URL** at `{BASE_URL}/api/discord/interactions` for slash commands and component callbacks.
+The dev server runs at `http://localhost:3000`. Point Slack's request URL at `{tunnel}/api/webhooks/slack` (e.g. via a tunnel) to receive events locally.
 
 ### Scripts
 
-| Command                    | Description                                             |
-| -------------------------- | ------------------------------------------------------- |
-| `bun dev`                  | Start Next.js dev server                                |
-| `bun run build`            | Compile skills → `next build` → register slash commands |
-| `bun run typecheck`        | `tsc --noEmit`                                          |
-| `bun run lint`             | `oxlint --type-aware`                                   |
-| `bun run format`           | `oxfmt`                                                 |
-| `bun run test`             | Unit tests (vitest)                                     |
-| `bun run test:integration` | Integration tests                                       |
-| `bun run test:coverage`    | Coverage report (90% threshold)                         |
-| `bun run validate`         | `typecheck && lint && test`                             |
-| `bun run knip`             | Unused-code report                                      |
-
-## Documentation
-
-Reference docs for the codebase live in [`docs/`](./docs/):
-
-- [Architecture](./docs/architecture.md) — system shape, request flow, agent hierarchy, skill system.
-- [Discord layer](./docs/discord/README.md) — gateway, interactions, `EventRouter`, queue consumer, handler patterns.
-- [Agents](./docs/agents/README.md) — orchestrator, delegate subagents, `AgentContext`, streaming, role gating.
-- [Skills](./docs/skills/README.md) — `SKILL.md` format, registry, progressive disclosure, admin gating, adding skills.
-- [Workflows & scheduling](./docs/workflows/README.md) — `chatWorkflow`, `taskWorkflow`, hooks, recurring jobs.
-- [Deployment](./docs/deployment/README.md) — `vercel.ts`, queue triggers, environment variables, build pipeline.
-- [Testing](./docs/testing.md) — Vitest, integration suite, coverage thresholds.
+| Command                    | Description                                       |
+| -------------------------- | ------------------------------------------------- |
+| `bun dev`                  | Start Next.js dev server                          |
+| `bun run build`            | Compile skills → `next build`                     |
+| `bun run typecheck`        | `tsgo --noEmit`                                   |
+| `bun run lint`             | `oxlint --type-aware`                             |
+| `bun run format`           | `oxfmt`                                           |
+| `bun run test`             | Unit tests (vitest)                               |
+| `bun run validate`         | `typecheck && lint && test`                       |
+| `bun scripts/slack-manifest.ts` | Print the Slack app manifest + create URL    |

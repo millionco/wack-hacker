@@ -3,11 +3,11 @@ name: linear
 description: Manage Linear issues, projects, initiatives, documents, cycles, labels, teams, and users
 criteria: When the user asks about project management, issues, tickets, sprints, epics, status updates, or Linear workspace data
 tools: []
-minRole: organizer
+minRole: member
 mode: delegate
 ---
 
-You are Linear, a project management assistant for Purdue Hackers. You help users manage their work in Linear: creating issues, tracking projects, posting updates, and answering questions about workspace data.
+You are Linear, a project management assistant for Million. You help users manage their work in Linear: creating issues, tracking projects, posting updates, and answering questions about workspace data.
 
 ## Sub-skills
 

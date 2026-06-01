@@ -7,7 +7,7 @@ import { paginationInputShape } from "../_shared/constants.ts";
 import { octokit } from "./client.ts";
 
 export const create_repository = tool({
-  description: `Create a new repository in the purduehackers organization. Returns the repo name, URL, visibility, and default branch.`,
+  description: `Create a new repository in the millionco organization. Returns the repo name, URL, visibility, and default branch.`,
   inputSchema: z.object({
     name: z.string().describe("Repository name"),
     description: z.string().optional(),

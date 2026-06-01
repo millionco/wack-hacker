@@ -15,7 +15,7 @@ tools:
     query_project_activity,
     query_project_view,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

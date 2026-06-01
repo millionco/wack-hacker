@@ -41,7 +41,7 @@ export interface WaitForOptions {
 /**
  * Injection points for `wrapApprovalTools()`. The `store` slot exists so tests
  * can swap in an `ApprovalStore` constructed against the in-memory Redis
- * fixture — Discord REST is mocked separately via `@discordjs/rest`.
+ * fixture.
  */
 export interface WrapApprovalOptions {
   context: AgentContext;
@@ -65,13 +65,4 @@ export interface ApprovalStoreLike {
     decidedByUserId: string | null,
   ): Promise<ApprovalState | null>;
   waitFor(id: string, opts?: WaitForOptions): Promise<ApprovalState>;
-}
-
-/** Arguments for `buildApprovalEmbed`. */
-export interface BuildApprovalEmbedArgs {
-  delegateName?: string;
-  toolName: string;
-  input: unknown;
-  reason: string;
-  timeoutMs: number;
 }

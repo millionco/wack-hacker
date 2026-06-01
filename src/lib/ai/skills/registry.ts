@@ -3,7 +3,7 @@ import type { SkillBundle, SkillMeta } from "./types.ts";
 
 const ROLE_LEVEL: Record<UserRole, number> = {
   public: 0,
-  organizer: 1,
+  member: 1,
   admin: 2,
 };
 

@@ -3,7 +3,7 @@ name: performance
 description: Query transaction performance, latency, throughput, and span data.
 criteria: Use when the user asks about slow endpoints, latency, throughput, p95/p99, or transaction performance.
 tools: [list_transactions, get_transaction_summary, list_spans]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

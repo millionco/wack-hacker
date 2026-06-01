@@ -3,7 +3,7 @@ name: stats
 description: View organization and project usage statistics — event volume, quotas, and trends.
 criteria: Use when the user asks about Sentry usage, event volume, quotas, dropped events, or ingestion stats.
 tools: [get_org_stats, get_project_stats]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

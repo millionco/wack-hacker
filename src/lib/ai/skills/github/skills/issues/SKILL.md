@@ -17,7 +17,7 @@ tools:
     manage_labels,
     manage_milestones,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

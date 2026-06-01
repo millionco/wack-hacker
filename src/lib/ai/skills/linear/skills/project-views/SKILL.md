@@ -3,7 +3,7 @@ name: project-views
 description: Query and analyze project views in list or count mode, with filters.
 criteria: Use for "show/count projects matching X".
 tools: [query_project_view]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

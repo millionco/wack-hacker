@@ -17,7 +17,7 @@ tools:
     list_deployment_check_runs,
     get_deployment_check_run,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

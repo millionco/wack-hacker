@@ -1,6 +1,6 @@
 ---
 name: membership
-description: Invite or remove members from the purduehackers GitHub organization (admin only).
+description: Invite or remove members from the millionco GitHub organization (admin only).
 criteria: Use when the user wants to add a new member to the GitHub organization or remove an existing member.
 tools: [add_member_to_platform, remove_member_from_platform]
 minRole: admin

@@ -4,7 +4,7 @@ description: Create, update, delete issues; query issue activity and history.
 criteria: Use when the user wants to create, update, delete, or inspect the history of a specific issue.
 tools:
   [create_issue, update_issue, delete_issue, archive_issue, unarchive_issue, query_issue_activity]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

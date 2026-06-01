@@ -1,14 +1,14 @@
 /**
- * Fixed identifiers for the Purdue Hackers Vercel team. These are not secrets
- * (they appear in dashboard URLs) and never rotate, so they live here rather
- * than in env — same rationale as the Notion data-source UUIDs in
- * `tools/sales/constants.ts`.
- *
- * To discover these values, call `whoami` + `list_teams` with a valid
- * `VERCEL_API_TOKEN`, or look at the Vercel dashboard URL.
+ * The Vercel team the `vercel` delegate operates on. Read straight from
+ * `process.env` (rather than the validated `env` module) because this is a
+ * `constants.ts` file, which the lint rules forbid from importing `env`. The
+ * values are declared in `env.ts` for documentation/typing, and the vercel
+ * delegate requires `VERCEL_TEAM_ID` (see `requiredEnv` in delegates.ts), so
+ * tools never run unscoped. `VERCEL_TEAM_ID` scopes API calls;
+ * `VERCEL_TEAM_SLUG` only builds dashboard links.
  */
-export const VERCEL_TEAM_ID = "team_kOQWJUQYzGW4blWthdK71Y8A";
-export const VERCEL_TEAM_SLUG = "purduehackers";
+export const VERCEL_TEAM_ID = process.env.VERCEL_TEAM_ID ?? "";
+export const VERCEL_TEAM_SLUG = process.env.VERCEL_TEAM_SLUG ?? "";
 
 /** Dashboard URL prefix used for building links in tool responses. */
 export const VERCEL_DASHBOARD_BASE = `https://vercel.com/${VERCEL_TEAM_SLUG}`;

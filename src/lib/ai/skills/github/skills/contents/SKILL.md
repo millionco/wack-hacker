@@ -12,7 +12,7 @@ tools:
     get_commit,
     compare_commits,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

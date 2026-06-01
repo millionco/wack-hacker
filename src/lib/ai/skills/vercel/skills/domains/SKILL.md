@@ -25,7 +25,7 @@ tools:
     issue_cert,
     remove_cert,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

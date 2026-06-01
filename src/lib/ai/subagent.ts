@@ -105,6 +105,27 @@ export function buildPrepareStep(args: {
   };
 }
 
+/**
+ * Fail fast before launching a subagent when the domain's credentials aren't
+ * configured — cheaper than spinning up an agent that can only error on its
+ * first tool call, and a clearer message for the user. Yields a single
+ * assistant message and returns `false` when env is missing; returns `true`
+ * (yielding nothing) when the domain is good to launch. Designed to be driven
+ * via `yield*` so the caller can bail in one line.
+ */
+async function* preflightRequiredEnv(spec: SubagentSpec): AsyncGenerator<UIMessage, boolean> {
+  const missing = (spec.requiredEnv ?? []).filter((key) => !process.env[key]);
+  if (missing.length === 0) return true;
+  countMetric("ai.subagent.missing_env", { domain: spec.name });
+  const message = `The ${spec.name} integration isn't configured on this deployment (missing ${missing.join(", ")}). Tell the user this domain is unavailable until those environment variables are set — do not retry.`;
+  yield {
+    id: `missing-env-${spec.name}`,
+    role: "assistant",
+    parts: [{ type: "text", text: message }],
+  } as unknown as UIMessage;
+  return false;
+}
+
 export function createDelegationTool(
   spec: SubagentSpec,
   context: AgentContext,
@@ -118,6 +139,8 @@ export function createDelegationTool(
     description: spec.description,
     inputSchema,
     execute: async function* (input, { abortSignal }) {
+      if (!(yield* preflightRequiredEnv(spec))) return;
+
       const registry = new SkillRegistry(spec.subSkills);
       const loadSkill = createLoadSkillTool(registry, role);
       const instructions = `${SUBAGENT_PREAMBLE}\n\n${spec.systemPrompt.replace(

@@ -10,7 +10,7 @@ export const add_member_to_platform = admin(
   approval(
     tool({
       description:
-        "Invite a GitHub user to the purduehackers organization. Default role is 'member'. If the user already belongs, updates their role instead. Returns state (active or pending).",
+        "Invite a GitHub user to the millionco organization. Default role is 'member'. If the user already belongs, updates their role instead. Returns state (active or pending).",
       inputSchema: z.object({
         username: z.string().describe("GitHub username to invite"),
         role: z
@@ -38,7 +38,7 @@ export const remove_member_from_platform = admin(
   approval(
     tool({
       description:
-        "Remove a user from the purduehackers organization. Revokes all their access to org repos. This does not delete their GitHub account, only their org membership.",
+        "Remove a user from the millionco organization. Revokes all their access to org repos. This does not delete their GitHub account, only their org membership.",
       inputSchema: z.object({
         username: z.string().describe("GitHub username to remove"),
       }),

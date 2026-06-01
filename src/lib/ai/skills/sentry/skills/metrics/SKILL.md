@@ -3,7 +3,7 @@ name: metrics
 description: Query custom metrics — counters, distributions, gauges, and sets.
 criteria: Use when the user asks about custom metrics, counters, distributions, gauges, or application-level numeric data.
 tools: [list_metrics, query_metrics, list_metric_tags, get_metric_tag_values]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

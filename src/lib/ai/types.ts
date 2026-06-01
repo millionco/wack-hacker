@@ -1,6 +1,7 @@
 import type { ToolSet, UIMessage } from "ai";
 import type { z } from "zod";
 
+import type { UserRole } from "./constants.ts";
 import type { AgentContext } from "./context.ts";
 import type { SkillBundle } from "./skills/types.ts";
 import type { TurnUsageTracker } from "./turn-usage.ts";
@@ -41,6 +42,24 @@ export interface SerializedAgentContext {
   nickname: string;
   channel: ChannelInfo;
   thread?: ThreadInfo;
+  /**
+   * Chat platform this turn runs on. Defaults to `discord` when absent so
+   * legacy serialized contexts still deserialize. Controls platform-specific
+   * formatting hints and role resolution.
+   */
+  platform?: "discord" | "slack";
+  /**
+   * Pre-resolved access tier. The Slack ingress resolves the tier (workspace
+   * admin/owner → admin, team members → member) and stores it here. When set,
+   * `AgentContext.role` returns it directly.
+   */
+  resolvedRole?: UserRole;
+  /**
+   * Chat SDK thread id for Slack turns (`slack:<channel>:<thread_ts>`). Carried
+   * so platform-aware features (e.g. tool approval prompts) can post back into
+   * the originating Slack thread without re-deriving it.
+   */
+  slackThreadId?: string;
   date: string;
   /**
    * Current instant as UTC ISO 8601 — the moment the orchestrator was invoked
@@ -189,6 +208,12 @@ export interface SubagentSpec {
   subSkills: Record<string, SkillBundle>;
   /** Tool names always visible to the subagent (base tools). */
   baseToolNames: readonly string[];
+  /**
+   * Environment variables this domain needs to do anything. The delegation
+   * tool checks these *before launching* the subagent and returns a clear
+   * error when any are missing, so a tool never runs without its credentials.
+   */
+  requiredEnv?: readonly string[];
   /** Override the default `SUBAGENT_MODEL` (e.g. Claude for coding). */
   model?: string;
   /** Override the default `stepCountIs(15)` cap. */

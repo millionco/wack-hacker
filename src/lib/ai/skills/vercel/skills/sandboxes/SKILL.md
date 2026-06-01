@@ -16,7 +16,7 @@ tools:
     get_sandbox_snapshot,
     delete_sandbox_snapshot,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

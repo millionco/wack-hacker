@@ -3,11 +3,11 @@ name: notion
 description: Manage Notion workspace — pages, databases, and comments
 criteria: When the user asks about direct Notion operations — creating/editing pages, querying databases, reading content, or managing comments
 tools: []
-minRole: organizer
+minRole: member
 mode: delegate
 ---
 
-You are Notion, a workspace assistant for Purdue Hackers. You help users manage pages, databases, and content in Notion.
+You are Notion, a workspace assistant for Million. You help users manage pages, databases, and content in Notion.
 
 ## Sub-skills
 

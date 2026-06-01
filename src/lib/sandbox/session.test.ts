@@ -31,7 +31,7 @@ envRedisStore.redis = createMemoryRedis();
 
 const baseParams = {
   threadKey: "T1",
-  repo: "purduehackers/agent-sandbox-test",
+  repo: "millionco/agent-sandbox-test",
   githubToken: "ghs_token",
   gitUser: { name: "wack-hacker[bot]", email: "bot@example.com" },
 };
@@ -179,7 +179,7 @@ describe("getOrCreateSession — repo changed", () => {
     const pv = createTestSandboxProvider();
     await redis.set(
       redisKey(),
-      sessionMetadata({ sandboxId: "sb-old", repo: "purduehackers/other-repo" }),
+      sessionMetadata({ sandboxId: "sb-old", repo: "millionco/other-repo" }),
       { ex: 60 },
     );
 
@@ -201,7 +201,7 @@ describe("getOrCreateSession — repo changed", () => {
     pv.failReconnectOnce();
     await redis.set(
       redisKey(),
-      sessionMetadata({ sandboxId: "sb-old", repo: "purduehackers/other-repo" }),
+      sessionMetadata({ sandboxId: "sb-old", repo: "millionco/other-repo" }),
       { ex: 60 },
     );
 
@@ -224,7 +224,7 @@ describe("getOrCreateSession — repo changed", () => {
       redisKey(),
       sessionMetadata({
         sandboxId: "sb-old",
-        repo: "purduehackers/other-repo",
+        repo: "millionco/other-repo",
         hibernated: true,
         snapshotId: "snap-old",
       }),

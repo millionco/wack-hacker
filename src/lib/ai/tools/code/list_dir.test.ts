@@ -9,7 +9,7 @@ import { list_dir } from "./list_dir.ts";
 function makeCtx(sandbox: InMemorySandbox): CodingSandboxContext {
   return {
     sandbox,
-    repo: "purduehackers/x",
+    repo: "millionco/x",
     branch: "wack-hacker/a",
     repoDir: "/vercel/sandbox",
     threadKey: "T1",

@@ -33,8 +33,8 @@ describe("TurnUsageTracker", () => {
     t.recordOrchestrator({
       usage: { inputTokens: 800, outputTokens: 150, totalTokens: 950 },
       steps: [
-        { toolCalls: [{ toolName: "delegate_linear" }, { toolName: "documentation" }] },
-        { toolCalls: [{ toolName: "resolve_organizer" }] },
+        { toolCalls: [{ toolName: "delegate_linear" }, { toolName: "schedule_task" }] },
+        { toolCalls: [{ toolName: "cancel_task" }] },
       ],
     });
     const usage = t.toTurnUsage();
@@ -45,7 +45,7 @@ describe("TurnUsageTracker", () => {
       subagentTokens: 200,
       toolCallCount: 7,
       stepCount: 2,
-      toolNames: ["delegate_linear", "documentation", "resolve_organizer", "list_issues"],
+      toolNames: ["delegate_linear", "schedule_task", "cancel_task", "list_issues"],
     });
   });
 

@@ -1,10 +1,9 @@
-import type { API } from "@discordjs/core/http-only";
 import type { z } from "zod";
 
 export interface TaskHandler<T = unknown> {
   name: string;
   schema: z.ZodType<T>;
-  handle(payload: T, discord: API): Promise<void>;
+  handle(payload: T): Promise<void>;
 }
 
 export interface TaskEnvelope {

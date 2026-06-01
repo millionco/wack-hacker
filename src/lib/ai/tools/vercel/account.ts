@@ -6,7 +6,7 @@ import { VERCEL_TEAM_ID, VERCEL_TEAM_SLUG } from "./constants.ts";
 
 export const whoami = tool({
   description:
-    "Return the authenticated Vercel user and the active Purdue Hackers team context. Useful as a debug smoke test.",
+    "Return the authenticated Vercel user and the active team context. Useful as a debug smoke test.",
   inputSchema: z.object({}),
   execute: async () => {
     const user = await vercel().user.getAuthUser();

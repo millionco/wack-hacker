@@ -1,13 +1,11 @@
 import { tool, type Tool, type ToolSet } from "ai";
-import { Routes } from "discord-api-types/v10";
 import { log } from "evlog";
 import { z } from "zod";
 
 import type { ApprovalState, WrapApprovalOptions } from "./types.ts";
 
-import { discord } from "../tools/discord/client.ts";
-import { buildApprovalComponents, buildApprovalEmbed, buildDecisionEmbed } from "./helpers.ts";
 import { getApprovalOptions } from "./index.ts";
+import { convergeSlackApproval, postSlackApproval } from "./slack.ts";
 import { ApprovalStore } from "./store.ts";
 
 const DEFAULT_TIMEOUT_MS = 240_000;
@@ -66,47 +64,18 @@ function buildWrappedDescription(
   return `${originalDescription ?? ""}\n\n${note}`;
 }
 
-async function postApprovalMessage(args: {
-  channelId: string;
-  requesterUserId: string;
-  embed: ReturnType<typeof buildApprovalEmbed>;
-  components: ReturnType<typeof buildApprovalComponents>;
-}): Promise<{ id: string }> {
-  const { channelId, requesterUserId, embed, components } = args;
-  return (await discord.post(Routes.channelMessages(channelId), {
-    body: {
-      content: `<@${requesterUserId}>`,
-      embeds: [embed],
-      components,
-      allowed_mentions: { users: [requesterUserId], parse: [] },
-    },
-  })) as { id: string };
-}
-
 /**
- * Best-effort swap of the original approval embed for the terminal decision
- * embed (green / red / grey) and remove the buttons. Called from the wrapper
- * when the approval resolves to a non-approved status so the channel UI
- * converges to what's stored — especially the timeout path, which otherwise
- * leaves the prompt amber with live buttons indefinitely.
+ * Best-effort swap of the original approval prompt for its terminal decision
+ * state (no buttons). Called from the wrapper when the approval resolves to a
+ * non-approved status so the thread UI converges to what's stored — especially
+ * the timeout path, which otherwise leaves live buttons indefinitely.
  */
 async function convergeApprovalMessage(state: ApprovalState): Promise<void> {
   if (!state.messageId || state.status === "pending" || state.status === "approved") return;
-  const channelId = state.threadId ?? state.channelId;
-  try {
-    await discord.patch(Routes.channelMessage(channelId, state.messageId), {
-      body: {
-        embeds: [buildDecisionEmbed(state, state.status, state.decidedByUserId ?? null)],
-        components: [],
-      },
-    });
-  } catch (err: unknown) {
+  await convergeSlackApproval(state).catch((err: unknown) => {
     const message = err instanceof Error ? err.message : "unknown error";
-    log.warn(
-      "approval",
-      `Failed to converge approval message ${state.messageId} to ${state.status}: ${message}`,
-    );
-  }
+    log.warn("approval", `Failed to converge Slack approval ${state.messageId}: ${message}`);
+  });
 }
 
 async function* runApproved(
@@ -169,17 +138,16 @@ function wrapWithApproval(
       await store.create(state, ttlSeconds);
 
       try {
-        const msg = await postApprovalMessage({
-          channelId: threadId ?? channelId,
+        const msg = await postSlackApproval({
+          approvalId,
+          slackThreadId: context.slackThreadId,
+          channelId,
           requesterUserId,
-          embed: buildApprovalEmbed({
-            delegateName,
-            toolName,
-            input: toolInput,
-            reason,
-            timeoutMs,
-          }),
-          components: buildApprovalComponents(approvalId),
+          delegateName,
+          toolName,
+          input: toolInput,
+          reason,
+          timeoutMs,
         });
         await store.setMessageId(approvalId, msg.id, ttlSeconds);
       } catch (err: unknown) {

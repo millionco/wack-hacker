@@ -1,12 +1,9 @@
-import type { API } from "@discordjs/core/http-only";
-
 import type { TaskEnvelope, TaskHandler } from "@/lib/tasks/queue/types";
 
-import { ConversationStore } from "@/bot/store";
-import { createDiscordAPI } from "@/lib/discord/client";
 import { createWideLogger } from "@/lib/logging/wide";
 import { countMetric, recordDuration } from "@/lib/metrics";
 import { withSpan } from "@/lib/otel/tracing";
+import { createRedis } from "@/lib/redis/client";
 import { handleCallback, send } from "@/lib/tasks/queue/client";
 import { TASK_TOPIC } from "@/lib/tasks/queue/constants";
 import { InvalidTaskPayloadError, UnknownTaskError } from "@/lib/tasks/queue/errors";
@@ -15,12 +12,22 @@ import * as taskHandlers from "@/lib/tasks/queue/handlers";
 const taskMap = new Map((Object.values(taskHandlers) as TaskHandler[]).map((h) => [h.name, h]));
 
 const MAX_RETRIES = 3;
+const DEDUP_TTL_MS = 5 * 60 * 1000;
 
 type Logger = ReturnType<typeof createWideLogger>;
 
+/** Atomic dedup claim — true if this key hasn't been seen in the TTL window. */
+async function claimDedup(key: string): Promise<boolean> {
+  const result = await createRedis().set(`dedup:${key}`, 1, { nx: true, px: DEDUP_TTL_MS });
+  return result !== null;
+}
+
+async function releaseDedup(key: string): Promise<void> {
+  await createRedis().del(`dedup:${key}`);
+}
+
 async function runHandler(
   envelope: TaskEnvelope,
-  discord: API,
   logger: Logger,
   startTime: number,
 ): Promise<void> {
@@ -42,7 +49,7 @@ async function runHandler(
     throw err;
   }
 
-  await handler.handle(parsed.data, discord);
+  await handler.handle(parsed.data);
 }
 
 async function enqueueRecurringFollowUp(envelope: TaskEnvelope, logger: Logger): Promise<void> {
@@ -87,18 +94,17 @@ export const POST = handleCallback<TaskEnvelope>(
         });
         const startTime = Date.now();
         countMetric("task.received", { name: envelope.task });
-        const store = new ConversationStore();
         const dedupKey = `task:${metadata.messageId}`;
         let dedupClaimed = false;
         try {
-          if (!(await store.dedup(dedupKey))) {
+          if (!(await claimDedup(dedupKey))) {
             countMetric("task.dedup_hit", { name: envelope.task });
             logger.emit({ outcome: "dedup_hit", duration_ms: Date.now() - startTime });
             return;
           }
           dedupClaimed = true;
 
-          await runHandler(envelope, createDiscordAPI(), logger, startTime);
+          await runHandler(envelope, logger, startTime);
           await enqueueRecurringFollowUp(envelope, logger);
 
           countMetric("task.completed", { name: envelope.task });
@@ -117,7 +123,7 @@ export const POST = handleCallback<TaskEnvelope>(
           // their own layer (e.g. `scheduled-task-fire` claims in Turso via
           // `claimFire` before any side effect).
           if (dedupClaimed) {
-            await store.releaseDedup(dedupKey).catch(() => {});
+            await releaseDedup(dedupKey).catch(() => {});
           }
           throw err;
         } finally {

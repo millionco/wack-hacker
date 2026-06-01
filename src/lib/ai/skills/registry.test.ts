@@ -14,8 +14,8 @@ describe("SkillRegistry", () => {
       expect(skills.map((s) => s.name)).toEqual(["scheduling"]);
     });
 
-    it("organizer sees public + organizer skills", () => {
-      const skills = registry.getAvailableSkills(UserRole.Organizer);
+    it("member sees public + member skills", () => {
+      const skills = registry.getAvailableSkills(UserRole.Member);
       expect(skills.map((s) => s.name)).toEqual(["scheduling", "linear"]);
     });
 

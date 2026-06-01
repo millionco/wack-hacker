@@ -23,7 +23,7 @@ tools:
     list_project_members,
     remove_project_member,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

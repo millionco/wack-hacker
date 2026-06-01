@@ -3,7 +3,7 @@ name: comments
 description: Create and list comments on pages and blocks.
 criteria: Use when the user wants to comment on a page, read existing comments, or reply in a discussion thread.
 tools: [create_comment, list_comments, retrieve_comment]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

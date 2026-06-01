@@ -3,7 +3,7 @@ name: profiling
 description: View CPU profiling data — flamegraphs and slowest functions.
 criteria: Use when the user asks about profiling, flamegraphs, CPU usage, slow functions, or function-level performance.
 tools: [get_flamegraph, list_profiled_functions]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

@@ -3,7 +3,7 @@ name: comments
 description: Post, edit, and delete comments on issues.
 criteria: Use when the user explicitly asks to comment on, reply to, or annotate an issue.
 tools: [create_comment, edit_comment, delete_comment]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

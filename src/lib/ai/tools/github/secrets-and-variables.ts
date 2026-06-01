@@ -206,7 +206,7 @@ export const delete_repo_variable = approval(
 // ---------------------------------------------------------------------------
 
 export const list_org_secrets = tool({
-  description: `List Actions secrets for the purduehackers organization. Returns names, timestamps, and visibility scope. Values are never readable.`,
+  description: `List Actions secrets for the millionco organization. Returns names, timestamps, and visibility scope. Values are never readable.`,
   inputSchema: z.object({
     ...paginationInputShape,
   }),
@@ -277,7 +277,7 @@ export const delete_org_secret = approval(
 // ---------------------------------------------------------------------------
 
 export const list_org_variables = tool({
-  description: `List Actions variables for the purduehackers organization. Returns name, value, timestamps, and visibility scope.`,
+  description: `List Actions variables for the millionco organization. Returns name, value, timestamps, and visibility scope.`,
   inputSchema: z.object({
     ...paginationInputShape,
   }),

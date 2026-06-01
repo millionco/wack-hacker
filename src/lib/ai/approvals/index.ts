@@ -22,17 +22,11 @@ export function hasApprovalMarker(t: unknown): boolean {
 
 export { wrapApprovalTools } from "./runtime.ts";
 export { ApprovalStore } from "./store.ts";
-export {
-  buildApprovalComponents,
-  buildApprovalEmbed,
-  buildDecisionEmbed,
-  formatToolCall,
-} from "./helpers.ts";
+export { formatToolCall } from "./helpers.ts";
 export type {
   ApprovalOptions,
   ApprovalState,
   ApprovalStoreLike,
-  BuildApprovalEmbedArgs,
   WaitForOptions,
   WrapApprovalOptions,
 } from "./types.ts";

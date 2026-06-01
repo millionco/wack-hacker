@@ -9,7 +9,7 @@ import { hibernateSession, readSession } from "./session.ts";
 function seedMetadata(expiresIn = 10 * 60 * 1000): SandboxSessionMetadata {
   return {
     sandboxId: "sb-1",
-    repo: "purduehackers/agent-sandbox-test",
+    repo: "millionco/agent-sandbox-test",
     branch: "wack-hacker/a",
     repoDir: "/vercel/sandbox",
     expiresAt: Date.now() + expiresIn,

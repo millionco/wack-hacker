@@ -1,6 +1,5 @@
 import type { Mock } from "vitest";
 
-import type { SlashCommandContext } from "@/bot/commands/types";
 import type {
   CreateCodingSandboxConfig,
   ExecOptions,
@@ -10,20 +9,6 @@ import type {
   SandboxProvider,
   VercelSandboxReconnectOptions,
 } from "@/lib/sandbox/types";
-
-export interface MockCall {
-  method: string;
-  args: unknown[];
-}
-
-export interface MockDiscord {
-  channels: Record<string, (...args: any[]) => Promise<any>>;
-  guilds: Record<string, (...args: any[]) => Promise<any>>;
-  users: Record<string, (...args: any[]) => Promise<any>>;
-  interactions: Record<string, (...args: any[]) => Promise<any>>;
-  _calls: MockCall[];
-  callsTo(method: string): unknown[][];
-}
 
 export type FetchImpl = (url: URL) => Response | Promise<Response>;
 
@@ -36,25 +21,6 @@ export interface NotionClientMocks {
   usersList?: Mock;
   search?: Mock;
   databasesRetrieve?: Mock;
-}
-
-export interface PayloadSDKMocks {
-  find?: Mock;
-  findByID?: Mock;
-  create?: Mock;
-  update?: Mock;
-  delete?: Mock;
-  count?: Mock;
-}
-
-export interface FakeSlashCommandCtxOptions {
-  roles?: string[];
-  /** Override interaction fields (id, application_id, token, etc.). */
-  interaction?: Partial<SlashCommandContext["interaction"]>;
-  /** Override member.user fields. */
-  user?: { id?: string; username?: string };
-  /** When true, omit `member` entirely (e.g. DM interaction). */
-  noMember?: boolean;
 }
 
 // ─── sandbox test fixtures ────────────────────────────────────────────────

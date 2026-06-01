@@ -19,7 +19,7 @@ tools:
     delete_webhook,
     list_org_webhooks,
   ]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

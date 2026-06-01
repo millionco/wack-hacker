@@ -3,7 +3,7 @@ name: replays
 description: View session replays — user session recordings with error context.
 criteria: Use when the user asks about session replays, user recordings, or wants to see what a user experienced.
 tools: [list_replays, get_replay]
-minRole: organizer
+minRole: member
 mode: inline
 ---
 

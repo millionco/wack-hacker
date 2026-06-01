@@ -2,8 +2,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { ScheduledTaskRow } from "@/lib/tasks/types";
 
+import { UserRole } from "@/lib/ai/constants";
 import { ScheduledTaskStatus, ScheduleType } from "@/lib/tasks/enums";
-import { messagePacket, toolOpts } from "@/lib/test/fixtures";
+import { toolOpts } from "@/lib/test/fixtures";
 
 const hoisted = vi.hoisted(() => ({
   sendScheduledFire: vi
@@ -29,10 +30,15 @@ const { AgentContext } = await import("../../context.ts");
 const { hasApprovalMarker } = await import("../../approvals/index.ts");
 const { createScheduleTask, list_scheduled_tasks, cancel_task } = await import("./index.ts");
 
-type AgentContextInstance = Awaited<ReturnType<typeof AgentContext.fromPacket>>;
+type AgentContextInstance = ReturnType<typeof AgentContext.fromSlack>;
 
-function contextWithRoles(memberRoles?: string[]): AgentContextInstance {
-  return AgentContext.fromPacket(messagePacket("hello", { memberRoles }));
+function contextWithRoles(_memberRoles?: string[]): AgentContextInstance {
+  return AgentContext.fromSlack({
+    userId: "U_TEST",
+    username: "tester",
+    channel: { id: "C_TEST", name: "test" },
+    role: UserRole.Member,
+  });
 }
 
 function futureISO(): string {
@@ -122,7 +128,6 @@ describe("schedule_task: successful scheduling", () => {
       runAt,
       cron: null,
       action: { type: "message", channelId: "ch-7", content: "Hello!" },
-      memberRoles: ["role-admin"],
       status: "active",
       nextRunAt: runAt,
       queueMessageId: "msg-queue-1",
