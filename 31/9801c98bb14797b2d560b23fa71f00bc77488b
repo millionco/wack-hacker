@@ -1,0 +1,40 @@
+README.md
+  s_70667b89c798c8::t_84041edf1ef2e2 65-66
+  s_70667b89c798c8::t_ff8654d3a414e4 59
+src/lib/evlog.ts
+  s_70667b89c798c8::t_804f8cce12f169 4
+knip.json
+  s_70667b89c798c8::t_8ef3f810cc8cc1 7
+src/lib/slack/bot.ts
+  s_70667b89c798c8::t_8eac05fd4ec145 12
+  s_70667b89c798c8::t_570c68b2a992c6 36-38,43
+src/lib/slack/deployment.ts
+  s_70667b89c798c8::t_bef8c85bcf6c70 4-7,10,16,22-24
+src/lib/sandbox/session.test.ts
+  s_70667b89c798c8::t_4895df0056e888 73
+  s_70667b89c798c8::t_41c6c2c79e73d2 363
+src/env.ts
+  s_70667b89c798c8::t_d7119f3d4588cb 42-43,46,48-50,57-58
+src/lib/otel/constants.ts
+  s_70667b89c798c8::t_138b5b1aea1fde 1
+.env.example
+  s_70667b89c798c8::t_a683b948bd5427 18,20,22,26
+src/lib/sandbox/session.ts
+  s_70667b89c798c8::t_5f6160e68da20e 40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "319801c98bb14797b2d560b23fa71f00bc77488b",
+  "prompts": {},
+  "sessions": {
+    "s_70667b89c798c8": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1282b083-e6d0-4319-bfad-b0004d6ccfb8",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Rayhan Noufal Arayilakath <me@rayhanadev.com>"
+    }
+  }
+}
