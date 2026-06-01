@@ -10,5 +10,3 @@ export const Personality = {
 
 // eslint-disable-next-line @factory/constants-file-organization, @factory/types-file-organization
 export type PersonalityOption = (typeof Personality)[keyof typeof Personality];
-
-export const DEFAULT_PERSONALITY: PersonalityOption = Personality.Balanced;

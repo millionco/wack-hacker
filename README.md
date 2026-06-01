@@ -56,15 +56,14 @@ Generate the app manifest and open the prefilled "create app" URL:
 BASE_URL=https://your-deployment.example.com bun scripts/slack-manifest.ts
 ```
 
-Paste the manifest at [api.slack.com/apps](https://api.slack.com/apps), install it, then set the env vars below. The manifest points Slack's **Event Subscriptions** and **Interactivity** request URLs at `{BASE_URL}/api/webhooks/slack`, and OAuth at `{BASE_URL}/api/slack/oauth`.
+Paste the manifest at [api.slack.com/apps](https://api.slack.com/apps), install it to your workspace, then set the env vars below. The manifest points Slack's **Event Subscriptions** and **Interactivity** request URLs at `{BASE_URL}/api/webhooks/slack`.
 
 ### Environment
 
 Key Slack vars (validated by [`src/env.ts`](src/env.ts)):
 
-- `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET` — single-workspace install.
-- `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET` — multi-workspace OAuth (optional).
-- `SLACK_USER_TOKEN` — enables workspace search (`slack_search`) on single-workspace installs.
+- `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET` — workspace install (required).
+- `SLACK_USER_TOKEN` — enables workspace search (`slack_search`).
 - `REDIS_URL`, `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `TURSO_*` — state, stores, scheduling.
 - Vendored integrations: `STRIPE_API_KEY`, `MERCURY_API_TOKEN`, `POSTHOG_API_KEY`/`POSTHOG_PROJECT_ID`, `AXIOM_API_TOKEN`, `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID`, `PLANETSCALE_SERVICE_TOKEN_ID`/`PLANETSCALE_SERVICE_TOKEN`/`PLANETSCALE_ORG`, `EXA_API_KEY`. Each is optional — its tools error clearly at call time when unset.
 

@@ -6,7 +6,6 @@
 import type { PersonalityOption } from "./constants.ts";
 
 export type { PersonalityOption } from "./constants.ts";
-export { DEFAULT_PERSONALITY } from "./constants.ts";
 
 const BALANCED = `Match the moment.
 

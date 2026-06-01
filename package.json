@@ -45,7 +45,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@ai-sdk/groq": "^3.0.35",
     "@ai-sdk/mcp": "^1.0.37",
     "@chat-adapter/slack": "^4.26.0",
     "@chat-adapter/state-redis": "^4.26.0",
@@ -59,7 +58,6 @@
     "@opentelemetry/api": "^1.9.1",
     "@sentry/api": "^0.113.0",
     "@sentry/nextjs": "^10.50.0",
-    "@slack/types": "^2.20.1",
     "@slack/web-api": "^7.15.1",
     "@t3-oss/env-core": "^0.13.11",
     "@upstash/redis": "^1.37.0",
@@ -69,7 +67,6 @@
     "@vercel/sdk": "^1.19.40",
     "ai": "^6.0.168",
     "chat": "^4.26.0",
-    "codec-parser": "^2.5.0",
     "drizzle-orm": "^0.45.2",
     "evlog": "^2.13.0",
     "exa-js": "^1.4.4",
@@ -78,11 +75,7 @@
     "octokit": "^5.0.5",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "rehype-stringify": "^10.0.1",
-    "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.1.2",
     "ulid": "^3.0.2",
-    "unified": "^11.0.5",
     "workflow": "^4.2.4",
     "zod": "^4.3.6"
   },

@@ -9,7 +9,6 @@
  */
 
 const WEBHOOK_PATH = "/api/webhooks/slack";
-const OAUTH_PATH = "/api/slack/oauth";
 
 const BOT_SCOPES = [
   "app_mentions:read",
@@ -99,7 +98,6 @@ interface SlackManifest {
     }>;
   };
   oauth_config: {
-    redirect_urls?: string[];
     scopes: { bot: string[]; user?: string[] };
   };
   settings: {
@@ -117,7 +115,6 @@ export function createSlackManifest(deployUrl?: string, appName = "pookie"): Sla
     return `${deployUrl.replace(/\/+$/, "")}${path}`;
   };
   const webhookUrl = endpoint(WEBHOOK_PATH);
-  const oauthUrl = endpoint(OAUTH_PATH);
 
   return {
     display_information: {
@@ -153,7 +150,6 @@ export function createSlackManifest(deployUrl?: string, appName = "pookie"): Sla
       ],
     },
     oauth_config: {
-      ...(oauthUrl ? { redirect_urls: [oauthUrl] } : {}),
       scopes: { bot: [...BOT_SCOPES], user: [...USER_SCOPES] },
     },
     settings: {

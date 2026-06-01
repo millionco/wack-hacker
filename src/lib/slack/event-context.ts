@@ -48,23 +48,3 @@ export function extractSlackEventContext(raw: unknown): SlackEventContext {
 
   return { teamId, userId, channelId };
 }
-
-export function extractSlackChannelId(raw: unknown): string | undefined {
-  return extractSlackEventContext(raw).channelId;
-}
-
-interface ActionTokenRaw {
-  action_token?: string;
-  assistant_thread?: { action_token?: string };
-}
-
-/**
- * The initial `app_mention` carries `assistant_thread.action_token`, which
- * scopes `assistant.search.context` results to the requesting user. Follow-up
- * messages don't, so callers cache it in thread state.
- */
-export function extractActionToken(raw: unknown): string | undefined {
-  if (!isRecord(raw)) return undefined;
-  const event = raw as ActionTokenRaw;
-  return event.assistant_thread?.action_token ?? event.action_token;
-}

@@ -12,15 +12,6 @@ import { slackWebClient } from "../tools/slack/client.ts";
 import { TurnUsageTracker } from "../turn-usage.ts";
 import { buildSlackSystemPrompt } from "./system-prompt.ts";
 
-/**
- * Slack channel ids start with C (public), G (private), or D (DM). Discord
- * channel ids are numeric snowflakes. Used by the scheduled-task fire handler
- * to route a task to the right platform without a schema/migration change.
- */
-export function isSlackChannelId(id: string): boolean {
-  return /^[CGD][A-Z0-9]{7,}$/i.test(id);
-}
-
 /** Post a static scheduled message to a Slack channel (new top-level message). */
 export async function deliverSlackScheduledMessage(
   channelId: string,

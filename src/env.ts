@@ -39,25 +39,23 @@ export const env = createEnv({
     SANDBOX_BASE_SNAPSHOT_ID: z.string().optional(),
 
     // ── Slack transport (Chat SDK + @chat-adapter/slack) ──
-    // Optional during the Discord→Slack migration so the app can boot before
-    // the Slack app is fully provisioned. Slack-facing routes guard on
+    // Single-workspace install: bot token + signing secret. Optional so the app
+    // can boot before the Slack app is provisioned; Slack-facing routes guard on
     // `isSlackConfigured()` and 503 until these are present.
     SLACK_BOT_TOKEN: z.string().optional(),
-    SLACK_BOT_NAME: z.string().optional(),
-    // Single-workspace user token used as a fallback search identity when a
-    // per-request action_token isn't available. Only set on single-workspace
-    // installs — it carries the installer's private-channel visibility.
-    SLACK_USER_TOKEN: z.string().optional(),
     SLACK_SIGNING_SECRET: z.string().optional(),
-    SLACK_CLIENT_ID: z.string().optional(),
-    SLACK_CLIENT_SECRET: z.string().optional(),
+    SLACK_BOT_NAME: z.string().optional(),
+    // User token used as a fallback search identity when a per-request
+    // action_token isn't available — it carries the installer's private-channel
+    // visibility.
+    SLACK_USER_TOKEN: z.string().optional(),
     // Standard Redis (rediss://) URL backing the Chat SDK state adapter
     // (subscriptions, dedupe, per-thread state). Distinct from the Upstash
     // REST client (KV_REST_API_*) used by approvals + task dedup. Point both
     // at the same instance.
     REDIS_URL: z.string().optional(),
-    // Public base URL for OAuth redirects + Slack manifest endpoints. Falls
-    // back to VERCEL_PROJECT_PRODUCTION_URL / VERCEL_URL at runtime.
+    // Public base URL for the Slack manifest endpoint. Falls back to
+    // VERCEL_PROJECT_PRODUCTION_URL / VERCEL_URL at runtime.
     BASE_URL: z.string().optional(),
 
     // ── Vendored Million integrations (native tools, not MCP) ──

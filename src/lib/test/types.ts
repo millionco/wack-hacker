@@ -10,8 +10,6 @@ import type {
   VercelSandboxReconnectOptions,
 } from "@/lib/sandbox/types";
 
-export type FetchImpl = (url: URL) => Response | Promise<Response>;
-
 export interface NotionClientMocks {
   dataSourcesQuery?: Mock;
   dataSourcesRetrieve?: Mock;

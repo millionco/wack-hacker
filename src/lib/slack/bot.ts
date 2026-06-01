@@ -9,7 +9,7 @@ import { env } from "@/env";
 
 import type { SlackThreadState } from "./types";
 
-import { isOAuthConfigured, isSlackConfigured } from "./deployment";
+import { isSlackConfigured } from "./deployment";
 
 export type { SlackThreadState } from "./types";
 
@@ -33,30 +33,16 @@ function lazyRedisState(): StateAdapter {
 }
 
 /**
- * The Slack adapter throws at construction if no signing secret / credentials
- * are present. Pass placeholders when env isn't populated yet so module load
- * doesn't crash the whole server — Slack-facing routes guard on
+ * Single-workspace Slack adapter config (bot token + signing secret). The
+ * adapter throws at construction if no signing secret is present, so pass a
+ * placeholder when env isn't populated yet — Slack-facing routes guard on
  * `isSlackConfigured()` and 503 until real secrets are set.
  */
 function buildAdapterConfig(): SlackAdapterConfig {
   if (!isSlackConfigured()) {
-    return {
-      signingSecret: "wack-hacker-not-configured",
-      clientId: "wack-hacker-not-configured",
-      clientSecret: "wack-hacker-not-configured",
-    };
+    return { signingSecret: "pookie-not-configured" };
   }
 
-  if (isOAuthConfigured()) {
-    return {
-      signingSecret: env.SLACK_SIGNING_SECRET,
-      clientId: env.SLACK_CLIENT_ID,
-      clientSecret: env.SLACK_CLIENT_SECRET,
-    };
-  }
-
-  // Single-workspace: bot token + signing secret (both auto-detected from env
-  // by the adapter, but we pass them explicitly for clarity).
   return {
     signingSecret: env.SLACK_SIGNING_SECRET,
     botToken: env.SLACK_BOT_TOKEN,
