@@ -1,0 +1,603 @@
+src/lib/ai/skills/registry.ts
+  s_70667b89c798c8::t_aa068aec9864c5 6
+src/lib/ai/turn-usage.test.ts
+  s_70667b89c798c8::t_8af1b7c867b41f 36-37,48
+src/server/index.ts
+  s_70667b89c798c8::t_2e78867f4fbd37 5-7,11
+src/lib/ai/tools/cloudflare/index.ts
+  s_70667b89c798c8::t_071784d8b69061 5,14-24,30-39,43,47-48,50-68,72,74,76-81,83-93,98-105,111-118,123,129-136,141-143
+  ai_agent 25-26,28,45,106-110,120-121,124-127,137-140
+  s_70667b89c798c8::t_05091cd57fe503 6,8-12
+src/lib/ai/skills/code/SKILL.md
+  s_70667b89c798c8::t_ea1eabe2769f15 3-4
+src/app/api/slack/manifest/route.ts
+  s_70667b89c798c8::t_56edea69940a81 2-3,5-8
+src/lib/ai/tools/slack/channels.ts
+  s_70667b89c798c8::t_09b40ef69df7e5 6,8,12-23,28,30,32-33,35-44,49,51,53-54,56-65,70,72,74-75,77-86,91,94,96,98-107
+  ai_agent 10-11
+src/lib/test/fixtures/ai.ts
+  s_70667b89c798c8::t_34e24f83e2e0af 8,10,13-15,18-23
+src/lib/ai/tools/vercel/account.ts
+  s_70667b89c798c8::t_2767e480049a32 9
+src/lib/ai/skills/sentry/skills/performance/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/code/run_checks.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+vercel.ts
+  s_70667b89c798c8::t_1cdb08e8a823d8 18-20
+src/lib/ai/tools/vercel/team.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 59-60
+src/lib/ai/skills/cloudflare/SKILL.md
+  s_70667b89c798c8::t_559099e39e359d 2-4,10,14-16,18,20-22
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/slack/index.ts
+  s_70667b89c798c8::t_a41b09543a6709 2,6-9
+README.md
+  s_70667b89c798c8::t_2d6e5f58526b62 1,3
+  s_70667b89c798c8::t_1dca9c5493cb41 41
+  s_70667b89c798c8::t_6f4bbaf4de8e2a 5-9,13,15,17-18,22-23,25-26,28,30-37,39,48-49,51-53,56,59-69,78,82-91
+src/lib/ai/skills/sentry/skills/replays/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/vercel/skills/edge-platform/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 42
+src/lib/ai/tools/vercel/account.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 19-20,35,54,66
+src/lib/ai/tools/axiom/client.ts
+  s_70667b89c798c8::t_e918026ff01242 1-17
+src/lib/ai/tools/schedule/index.test.ts
+  s_70667b89c798c8::t_94525a13ecfbbc 5,7
+  s_70667b89c798c8::t_2ba77b14e99f4f 40
+  s_70667b89c798c8::t_fdcda0fe85dabc 33,35-39,41
+src/lib/ai/skills/sentry/skills/traces/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/linear/skills/teams/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/exa/skills/web-search/SKILL.md
+  s_70667b89c798c8::t_ab68e597dc85aa 1-5,7-11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/posthog/skills/query/SKILL.md
+  s_70667b89c798c8::t_5026bfddb51711 1-5,7-11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/runtime.test.ts
+  s_70667b89c798c8::t_b11159a8169013 62
+src/lib/ai/skills/sentry/skills/monitors/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/loader.test.ts
+  s_70667b89c798c8::t_926cb0f3d1f57c 33-34
+src/lib/ai/tools/vercel/projects.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 51-52,68
+src/lib/ai/skills/vercel/skills/rollouts/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 20
+src/lib/ai/tools/vercel/integrations.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 28-29
+src/lib/ai/skills/linear/skills/issues/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 7
+src/lib/ai/tools/slack/client.ts
+  s_70667b89c798c8::t_2475da0e30ee39 1,5-6,8-22,25-32,35-42,45-47,49-52,54-55,57-68,70-72,77-92
+  ai_agent 3,53
+src/lib/ai/skills/cloudflare/skills/workers/SKILL.md
+  s_70667b89c798c8::t_3555e98de21de6 1-5,7-10
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/notion/skills/databases/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/github/secrets-and-variables.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 209,280
+src/lib/ai/tools/code/list_dir.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/skills/github/skills/reactions/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/slack/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_c78bb893308f06 2-4,10,14-32
+src/lib/ai/skills/sentry/skills/events/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/vercel/skills/deployments/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 19
+src/lib/ai/skills/exa/skills/similar/SKILL.md
+  s_70667b89c798c8::t_dfd2b2aef14fc3 1-5,7-10
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/linear/skills/initiatives/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/slack/oauth-state.ts
+  s_70667b89c798c8::t_fdd06fe7a5902a 3
+  s_70667b89c798c8::t_9bf6ee4ee6c4ff 1,5-8,10-20
+src/lib/ai/skills/axiom/skills/query/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_50afd7b901152b 2-5,10-11
+src/lib/ai/tools/github/membership.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 13,41
+src/lib/slack/roles.ts
+  s_70667b89c798c8::t_501671b727eca9 5
+  s_70667b89c798c8::t_ee7f9f4e6d5321 15,19,32-33,36
+  s_70667b89c798c8::t_5266ac89c62680 1,3,6-9,11-14,16-18,20-27,30,34
+  ai_agent 31
+src/lib/ai/skills/mercury/SKILL.md
+  s_70667b89c798c8::t_dca53215e8e1c8 1-5,7-21
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/bot/slack/index.ts
+  s_70667b89c798c8::t_db6b51dcda115c 1-2,5-41,78-97,100-102,105-113,116-123
+  s_70667b89c798c8::t_3fb7a9cad59889 42-75
+  s_70667b89c798c8::t_7cd8500fbfd8e5 3-4
+src/lib/ai/skills/slack/skills/search/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_df3dff11faf9fd 2-5,10-13
+src/lib/ai/skills/github/skills/secrets-and-variables/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 20
+src/lib/ai/skills/github/skills/contents/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 15
+src/lib/ai/skills/registry.test.ts
+  s_70667b89c798c8::t_c7410d57c6fff2 17-18
+src/lib/ai/skills/github/skills/environments/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/test/fixtures/constants.ts
+  s_70667b89c798c8::t_a1085c97aa9e7c 20
+src/lib/ai/skills/sentry/skills/members/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 19
+src/lib/slack/types.ts
+  s_70667b89c798c8::t_cd46ead3ec7201 2-5,7-14,16
+src/lib/ai/tools/vercel/sandboxes.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 25-26
+src/lib/sandbox/hooks.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 28,117
+src/lib/ai/skills/linear/skills/comments/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/code/utils.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/approvals/types.ts
+  s_70667b89c798c8::t_f0078b4ed85fb0 44
+src/lib/ai/skills/github/skills/actions/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 16
+src/lib/ai/tools/mercury/client.ts
+  s_70667b89c798c8::t_27d49d117988bc 3-12
+src/lib/ai/tools/_shared/errors.ts
+  s_70667b89c798c8::t_412491853ceeae 1-8
+src/lib/ai/skills/notion/skills/blocks/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/vercel/security.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 24-25
+src/lib/ai/skills/planetscale/skills/databases/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_b90be41abfb6cd 1-5,7-10
+src/lib/ai/tools/vercel/logs.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 34-35
+src/lib/ai/tools/code/delegation.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 21
+  s_70667b89c798c8::t_209ed17e258ec5 46-47
+  s_70667b89c798c8::t_845edd1ee3ac6f 249-250
+src/lib/ai/skills/slack/skills/messages/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 15
+  s_70667b89c798c8::t_629ce1b29f969a 2-4,7-13,19-22
+src/lib/ai/skills/github/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_ea1eabe2769f15 10,39-40
+src/lib/test/fixtures/index.ts
+  s_70667b89c798c8::t_43f2f1a0cf9d2a 1-2
+  s_70667b89c798c8::t_e616b6c3ebc244 22
+src/lib/ai/skills/posthog/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_7fbfed4c6df155 1-5,7-22
+src/lib/ai/skills/linear/skills/labels/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/linear/skills/documents/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+.env.example
+  s_70667b89c798c8::t_d078a20f631ff4 1-8,10-15,17-29,32,36-39,41-62,64-68
+src/lib/ai/tools/github/packages.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 13,41,66,96
+src/lib/ai/skills/stripe/skills/payments/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_eb2676e337660c 1-5,7-11
+src/lib/ai/skills/stripe/skills/customers/SKILL.md
+  s_70667b89c798c8::t_a8c0fa1d5cce2f 1-5,7-11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/slack/users.ts
+  s_70667b89c798c8::t_bd4651114b5f47 4,6,10,12,14-16,18-26,28-29,34,38-39,41-54,57-75,78-87
+  ai_agent 8,36,55-56,76-77
+src/lib/ai/skills/vercel/skills/projects/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 26
+scripts/slack-manifest.ts
+  s_70667b89c798c8::t_73cd3ed8ac2535 1-7,9-14,16,18-23
+bun.lock
+  ai_agent 9-11,22-23,31,35,77-78,183,185,187,759,761,763,765,767-769,913-920,1087-1088,1365,1371-1372,1465-1466,1489-1490,1499-1500,1529,1569-1570,1587,1719-1720,1767,1787-1788,1791-1792,1909,1931-1932,2007,2095-2096,2109-2110,2117-2118,2121-2130,2133-2134,2151-2152,2155-2164,2289-2290,2313-2314,2319-2324,2389,2413,2423-2424,2429-2432,2687,2803,2805,2807,2809,2873-2876,3019-3020,3059,3061,3125-3126
+src/lib/ai/skills/slack/skills/reactions/SKILL.md
+  s_70667b89c798c8::t_f8f26937baa547 1-5,7-12
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/github/skills/packages/SKILL.md
+  s_70667b89c798c8::t_ea1eabe2769f15 11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/mercury/index.ts
+  ai_agent 8-9,31
+  s_70667b89c798c8::t_f708e7f20f34d8 4-5,7,10-27,29,32-39,43,45,47-51,53-71
+src/lib/ai/skills/sentry/skills/metrics/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/slack/files.ts
+  s_70667b89c798c8::t_57736790c9f620 4,6-7,9-27,29,33-34,36,38-51,56,58,60,62,64-67,69-92,98-100,105,108-116,118-130
+  ai_agent 31,93-97
+package.json
+  s_70667b89c798c8::t_c48498985bc2b7 33
+  s_70667b89c798c8::t_b2e9849afb48b0 2,5,17,19,22,28
+  s_70667b89c798c8::t_65f8d304712193 50-51
+  s_70667b89c798c8::t_b7f449b140fa65 71
+  ai_agent 12-13
+  s_70667b89c798c8::t_7f7aa705a8d635 49
+  s_70667b89c798c8::t_90b9df80b29e82 10
+  s_70667b89c798c8::t_38c8c69ba071dd 62-63
+src/lib/slack/constants.ts
+  s_70667b89c798c8::t_56ed44aaecf611 1
+src/app/api/slack/oauth/route.ts
+  s_70667b89c798c8::t_0e7c1061b6ed8c 3-5,7-14,16-22,24-25,27-28,30-36,39-72
+  ai_agent 1
+src/lib/ai/tools/code/glob.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/skills/sentry/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_ea1eabe2769f15 10
+src/lib/ai/skills/linear/skills/cycles/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/stripe/skills/subscriptions/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_68b5ba105e92f2 1-5,7-11
+src/lib/slack/routing.ts
+  s_70667b89c798c8::t_cf918b7781cf37 2-5,8-12,14-17,19-24,26-32
+src/lib/ai/skills/linear/skills/projects/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 18
+src/lib/slack/bot.ts
+  ai_agent 1-2,12,66-69
+  s_70667b89c798c8::t_0a885590a0568a 4-6,8,16-33,35-46,50-56,58-63,65,70-78
+  s_70667b89c798c8::t_af84e6012a3bc1 10,14
+src/lib/ai/skills/vercel/skills/security/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 16
+src/lib/ai/tools/code/grep.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/skills/slack/skills/threads/SKILL.md
+  s_70667b89c798c8::t_67385a8a3b323b 1-5,7-12
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/cloudflare/client.ts
+  ai_agent 14,16
+  s_70667b89c798c8::t_b93216320da425 1,3,5,7-11,18-22
+src/lib/ai/constants.ts
+  s_70667b89c798c8::t_005e5352000642 49
+  s_70667b89c798c8::t_f7eac886f37bd4 10
+  s_70667b89c798c8::t_b896a5fe6da2f6 56-61,63,80-83,88,93
+  ai_agent 95
+src/lib/ai/tools/_shared/types.ts
+  s_70667b89c798c8::t_d2734c5427f5c3 1-9
+src/lib/tasks/queue/handlers/scheduled-task-fire.ts
+  s_70667b89c798c8::t_ccc8524b4aac45 77
+  s_70667b89c798c8::t_b171aa3617460a 193,196,201,203-206
+  ai_agent 5
+  s_70667b89c798c8::t_cb79f9c475fc27 28,32,37
+src/lib/ai/skills/sentry/skills/stats/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/slack/canvases.ts
+  ai_agent 13-15
+  s_70667b89c798c8::t_e22281da4b27a9 5,7,10,12,16-19,21-45
+src/lib/ai/approvals/index.ts
+  s_70667b89c798c8::t_94673fcb980ded 25
+src/lib/ai/skills/linear/skills/users/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 17
+src/lib/ai/tools/axiom/index.ts
+  s_70667b89c798c8::t_9843a0233679a7 4-5,7,10-18,22,29-30,32-50
+  ai_agent 9,24,26-28
+src/lib/ai/tools/github/organization.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 11,53,143,166,298
+src/lib/ai/skills/exa/skills/contents/SKILL.md
+  s_70667b89c798c8::t_4da29223d07f50 2-5,10-11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/mercury/skills/accounts/SKILL.md
+  s_70667b89c798c8::t_bd0a72a982604f 1-5,7-10
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/vercel/edge.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 52-53
+src/lib/ai/skills/posthog/skills/feature-flags/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_039a0405d2421d 1-5,7-10
+src/lib/ai/skills/github/skills/projects/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 14
+src/lib/ai/slack/constants.ts
+  s_70667b89c798c8::t_4b50012a6f373b 2-3,5-8,12,14
+src/lib/ai/tools/slack/messages.ts
+  s_70667b89c798c8::t_6c48378dd66c8e 5,7-10,13-42,44-63,66,68-70,72,74-80,82-84,90,94-99,101-107,113,115,117-118,120,122-128,134,136,138-139,141,143-149,155-160,162-173
+  ai_agent 92-93
+src/lib/ai/skills/vercel/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_ea1eabe2769f15 3,10
+src/lib/ai/skills/github/skills/tags-refs/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/github/base.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 8,11,80,83,93,144,147
+  s_70667b89c798c8::t_54e87398ca55e9 100
+src/lib/ai/tools/github/projects.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 10
+src/lib/ai/types.ts
+  s_70667b89c798c8::t_c2b78569f0eaa1 57-62
+  s_70667b89c798c8::t_32ef3949b5668c 4
+  s_70667b89c798c8::t_8ba72a1a5e9aeb 45-49,51,55-56
+  s_70667b89c798c8::t_eed5afde99099c 52-54
+  s_70667b89c798c8::t_3f283cf0678072 211-216
+  s_70667b89c798c8::t_3e67e813bdc7b2 50
+src/lib/ai/slack/scheduled.ts
+  s_70667b89c798c8::t_ebd46455e0b895 1,5-6,8-10,12-13,15-22,24-34,36-49,51-58,60-67,69,71-74,76-83
+  ai_agent 3,11
+src/lib/ai/tools/vercel/constants.ts
+  s_70667b89c798c8::t_20e2533d6cabf3 2-5,7-8,10-11
+  s_70667b89c798c8::t_d7e30821d1e308 6
+src/lib/ai/skills/sentry/skills/alerts/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 15
+vitest.config.ts
+  s_70667b89c798c8::t_b65445d10e9532 21
+src/lib/ai/tools/stripe/index.ts
+  ai_agent 17,127-128,149,153-158,162-163,187-190,202-206
+  s_70667b89c798c8::t_b5bfd978124f93 5-6,8-10,13,15,19-20,22,24-25,27-36,41-44,46-51,56-57,59-64,66,68-80,85-86,88-90,92,94-108,113-116,118-121,126,129-133,135-141,146,150-152,159-161,164-186,191-192,194-201,207-208
+src/lib/ai/skills/slack/skills/users/SKILL.md
+  s_70667b89c798c8::t_96584ac28f0679 3-5,10-12
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/env.ts
+  s_70667b89c798c8::t_e4412c957e7a11 7,13-27,32-33,35
+  s_70667b89c798c8::t_819056de30b611 40-55,58-79
+  s_70667b89c798c8::t_ee31f4ff6d2c79 56-57
+  s_70667b89c798c8::t_cba6fa27655fed 28-31
+src/lib/ai/approvals/slack.ts
+  ai_agent 1,3
+  s_70667b89c798c8::t_17d30b488c4638 4,8-32,35-38,40-86,89-91,94-115
+src/lib/ai/skills/sentry/skills/releases/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 14
+src/lib/ai/tools/vercel/deployments.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 39-40
+src/lib/sandbox/hibernate.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/skills/stripe/skills/invoices/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_ecfc15cbb029d7 3-5,10-11
+src/lib/ai/slack/personality.ts
+  s_70667b89c798c8::t_8ada0e6707c39a 6,8-9
+  s_70667b89c798c8::t_cb2bc2ea285274 1-5,11,13,15,17,19-40
+src/lib/tasks/queue/types.ts
+  s_70667b89c798c8::t_d7b8e09b577556 6
+src/lib/ai/skills/vercel/skills/sandboxes/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 19
+src/lib/ai/tools/code/edit.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/tools/slack/base.ts
+  s_70667b89c798c8::t_c9dc79fea259d2 4,6,8-10,12,15-19,21-22,27,29,31-33,35,37,40-61,66-68,70,72,74-89,94-98,100,102-120,125-132,134-152
+  ai_agent 13,38-39
+src/lib/ai/skills/linear/skills/project-views/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/notion/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_ea1eabe2769f15 10
+src/lib/ai/skills/github/skills/issues/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 20
+src/lib/ai/subagent.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 168
+src/lib/ai/slack/pet-mode.ts
+  s_70667b89c798c8::t_df21f60f2a6f0d 51-53
+  s_70667b89c798c8::t_80dadbd92ed1fc 1-50
+src/lib/ai/slack/run-turn.ts
+  s_70667b89c798c8::t_ae45ad6e4db66e 98
+  s_70667b89c798c8::t_3f709561be06ce 107-111,114
+  s_70667b89c798c8::t_345c18e273975b 125-126,128-136,138,140-144,146,148-151,153-154,156-157
+  s_70667b89c798c8::t_12f2d83a24ebee 1-2,6,9,11-14,16,19-22,24-28,30-33,40-49,51-59,63-68,73-93,95,97,99-106,112-113,115,117,119-123,127,137,158-159
+  ai_agent 4,8,17,36-39,69-71
+  s_70667b89c798c8::t_f1ba87f0f2d9ad 10
+  s_70667b89c798c8::t_889fabf21d8d4c 94
+src/lib/ai/tools/vercel/domains.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 48-49
+src/lib/ai/tools/slack/reactions.ts
+  s_70667b89c798c8::t_8de267c32b236d 4-9,11,13,15-16,22-31,34-35,39-40,42-44,46-55,59-60,62-63,65-71,77-81
+  ai_agent 17-20,32-33,72-76
+src/lib/ai/tools/stripe/client.ts
+  s_70667b89c798c8::t_e11982d079b85a 3-22
+src/lib/ai/skills/sentry/skills/profiling/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/github/repositories.ts
+  s_70667b89c798c8::t_ea1eabe2769f15 10
+src/lib/ai/approvals/helpers.test.ts
+  s_70667b89c798c8::t_a0f78ca6b9180f 3
+src/lib/ai/skills/github/skills/organization/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 22
+src/lib/ai/tools/_shared/http.ts
+  ai_agent 5
+  s_70667b89c798c8::t_2740f6ff9627be 7-10,15-20,22,24-26,29-40,43-48,50-51,54-60,64-71,73-74
+  s_70667b89c798c8::t_3c81395519f97b 3,12-13,21,23,53
+src/lib/ai/skills/slack/skills/files/SKILL.md
+  s_70667b89c798c8::t_9ef7fd04a39028 1-5,7-11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/code/read.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/skills/axiom/skills/datasets/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_38b75612b29131 2-5,10
+src/lib/ai/skills/linear/SKILL.md
+  s_70667b89c798c8::t_ea1eabe2769f15 10
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/planetscale/SKILL.md
+  s_70667b89c798c8::t_6deb097a8b9ac0 1-5,7-22
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/slack/threads.ts
+  s_70667b89c798c8::t_f7a34fb77dc848 4,6-9,12-18,21,23,25-27,29-55
+src/lib/ai/skills/linear/skills/project-updates/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/sentry/skills/issue-management/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 15
+src/lib/ai/skills/github/skills/membership/SKILL.md
+  s_70667b89c798c8::t_ea1eabe2769f15 3
+src/app/api/tasks/route.ts
+  s_70667b89c798c8::t_d02db2f347b3b0 126
+  s_70667b89c798c8::t_fdd4d5af2788e9 100,107
+  s_70667b89c798c8::t_d942715995c764 6,15,19-27
+  s_70667b89c798c8::t_227d410121eff5 52
+src/lib/ai/tools/planetscale/index.ts
+  ai_agent 34,55-56,82-83
+  s_70667b89c798c8::t_3066a50c6dc557 4-5,7-8,11-12,15-28,32,35-50,54,58-59,61-77,81,84-86,88-98
+src/lib/ai/skills/planetscale/skills/branches/SKILL.md
+  s_70667b89c798c8::t_9b04c3555eb90b 1-5,7-10
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/linear/skills/initiative-updates/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/cloudflare/skills/dns/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_b3fbb18cdd5938 1-5,7-11
+src/lib/ai/skills/linear/skills/issue-views/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/posthog/index.ts
+  ai_agent 14,19,22-23,33,44-48,74,96-98
+  s_70667b89c798c8::t_41396498a489fc 4-5,7-9,12,17-18,24-27,31,35-36,38-43,49-52,56-68,72,76,78-82,84-87,89-90,92-95,99-109
+src/lib/ai/tools/repogrep/client.ts
+  s_70667b89c798c8::t_ab2d6599a29c77 38,54
+  ai_agent 2-3
+  s_70667b89c798c8::t_fbb7f719f94ed5 12
+  s_70667b89c798c8::t_dfdd7f7c301676 1,7-10,13-14,17-29,31-37,39-46,48-51,53
+src/lib/ai/skills/planetscale/skills/deploy-requests/SKILL.md
+  s_70667b89c798c8::t_c58c5994367aa5 1-5,7-11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/orchestrator.test.ts
+  s_70667b89c798c8::t_3d761fc26ae9b2 96
+  s_70667b89c798c8::t_1720702b6d556b 64,71-72
+  s_70667b89c798c8::t_d2e56667ddaea2 6,15
+  s_70667b89c798c8::t_3ef79be9347842 65
+  s_70667b89c798c8::t_d87ec5792d0046 92-95,97
+  s_70667b89c798c8::t_61fa2dc7a58aa1 35
+  s_70667b89c798c8::t_63ecc63e7179c2 79,84-86
+src/lib/ai/delegates.test.ts
+  s_70667b89c798c8::t_101edfe5168b62 40-42
+  s_70667b89c798c8::t_1de9806b4929d5 23
+src/lib/ai/tools/exa/client.ts
+  s_70667b89c798c8::t_e67265a695ec74 1,5,7-12,14-21,23-37
+src/lib/ai/tools/planetscale/client.ts
+  s_70667b89c798c8::t_0d4fbf70c64d57 3,5,7-10,16,20-28
+  ai_agent 12-15,17-19
+src/lib/test/fixtures/sdks.ts
+  s_70667b89c798c8::t_816feb585c785f 1,3
+src/lib/ai/skills/github/skills/releases/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 7
+src/lib/ai/skills/notion/skills/pages/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 16
+src/lib/ai/skills/vercel/skills/integrations/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 20
+src/lib/ai/skills/posthog/skills/insights/SKILL.md
+  s_70667b89c798c8::t_14b450b0f82ed1 1-5,7-11
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/delegates.ts
+  s_70667b89c798c8::t_f1736a70091089 40
+  s_70667b89c798c8::t_b962d4a7af9008 32,35,37-38,41
+  s_70667b89c798c8::t_932eb0a5ee86d0 76-85
+  s_70667b89c798c8::t_b3e36ed0a033cb 63,69-74,86,92,98,119-124,135,141,147,153,159,165,171,175-180
+  s_70667b89c798c8::t_bbd6a70ecd6338 113
+  s_70667b89c798c8::t_66731d779c856d 7-8,10,13,15-16,19
+  s_70667b89c798c8::t_d443bbe3c2711a 126-128,130-133,136-140,142-146,148-152,154-158,160-164,166-170
+  s_70667b89c798c8::t_a0b965d4a9eaed 18
+  s_70667b89c798c8::t_bb650583b37272 24-25
+src/lib/ai/skills/mercury/skills/transactions/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_5ffa2d90737bce 1-5,7-11
+src/lib/ai/tools/posthog/client.ts
+  s_70667b89c798c8::t_351db11f3ad189 1-22
+src/lib/ai/subagent.ts
+  s_70667b89c798c8::t_191026d5e3486e 108-128,142
+  s_70667b89c798c8::t_dd28917e4e5e33 143
+src/lib/sandbox/session.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 34,182,204,227
+src/lib/ai/tools/slack/search.ts
+  s_70667b89c798c8::t_2e3463a39eacd8 6,8-24,26,30-34,36-87
+  s_70667b89c798c8::t_f02b1895a2c2c4 4
+src/lib/ai/tools/code/write.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 12
+src/lib/ai/context.ts
+  s_70667b89c798c8::t_090e5fcbea4f54 35
+  s_70667b89c798c8::t_45c822ed4f82ef 129
+  s_70667b89c798c8::t_f9c182609ac460 62
+  s_70667b89c798c8::t_7ea6208530d413 36,55-56,60,64,70-71,73-81,83,86-92,101-104
+  s_70667b89c798c8::t_fafb6f93fdb509 127-128
+  s_70667b89c798c8::t_2c8075ae3f547f 57
+  s_70667b89c798c8::t_a37c22e824bb59 82,93
+  s_70667b89c798c8::t_21bef9905c39b9 37
+  s_70667b89c798c8::t_03f5d11352f8df 61,63,66
+src/lib/slack/deployment.ts
+  s_70667b89c798c8::t_6eea4a45a92e07 1-59
+scripts/compile-skills.ts
+  s_70667b89c798c8::t_65fbbd3e5c8929 12
+src/lib/ai/skills/vercel/skills/domains/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 28
+src/lib/ai/skills/slack/skills/canvases/SKILL.md
+  s_70667b89c798c8::t_64b7ed2a49e43f 1-5,7-12
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/vercel/skills/team-admin/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 30
+src/lib/ai/skills/slack/skills/channels/SKILL.md
+  s_70667b89c798c8::t_076c72ab73199f 2-12,17-19
+  s_70667b89c798c8::t_a4228e7bb3adfe 13
+src/lib/ai/orchestrator.ts
+  s_70667b89c798c8::t_b0e5f8b8aaf22f 42,45-46,48
+  s_70667b89c798c8::t_0e4d5a362c373d 44
+  s_70667b89c798c8::t_5aff99c4da6ba0 47
+src/lib/ai/skills/exa/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_6d8f7186f33d52 2-4,10,14-16,18,20-23
+src/lib/ai/tools/vercel/domains.ts
+  s_70667b89c798c8::t_5c6d3f0699ccad 63
+src/lib/slack/event-context.ts
+  s_70667b89c798c8::t_ef65b35c162601 21
+  s_70667b89c798c8::t_ed3c58e41643c1 3-20,22-24,27-29,31-35,37-39,41-47,49-50,52-54,56-59,61-70
+src/lib/ai/skills/github/skills/deployments/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 14
+src/app/api/webhooks/[platform]/route.ts
+  s_70667b89c798c8::t_2aa7ba8d60631c 1,3-6,8,10-14,16-19,21-24
+src/lib/ai/skills/github/skills/repositories/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 17
+src/lib/ai/skills/axiom/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+  s_70667b89c798c8::t_a1cc24621374bb 2-4,10,14-15,17,19-21
+src/lib/ai/skills/linear/skills/customer-requests/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/cloudflare/skills/cache/SKILL.md
+  s_70667b89c798c8::t_c1f4cad0919f9d 2-5,10
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/linear/skills/reminders/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/code/bash.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 17
+src/lib/slack/manifest.ts
+  s_70667b89c798c8::t_bfc7b2deca0c2e 14
+  s_70667b89c798c8::t_2a9d7d5d5bafb4 52
+  ai_agent 135-136,139-142
+  s_70667b89c798c8::t_ea496d022c2d4b 1-9,11-12,15-50,53-65,67-78,81-112,114-120,123-126,128-134,137-138,143-153,155-157,159-170,175-181
+  s_70667b89c798c8::t_f79d21ba2ceafd 80
+src/lib/ai/skills/notion/skills/comments/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/skills/stripe/SKILL.md
+  s_70667b89c798c8::t_4c14967492795e 1-5,7-8,10,12,14-24
+  s_70667b89c798c8::t_a4228e7bb3adfe 6
+src/lib/ai/tools/exa/index.ts
+  ai_agent 36-37,55-56
+  s_70667b89c798c8::t_a62a7860bd5697 4,6-8,10,12-16,18,20-21,23-25,28-33,35,38-52,54,57-68,70
+src/lib/ai/skills/github/skills/pull-requests/SKILL.md
+  s_70667b89c798c8::t_a4228e7bb3adfe 18
+src/lib/ai/tools/vercel/rollouts.test.ts
+  s_70667b89c798c8::t_d4f750f3792952 28-29
+src/lib/ai/slack/system-prompt.ts
+  s_70667b89c798c8::t_fa1a167b634417 1,4-15,17-19,21-25,27-31,33-34,36-42,46-47,49-55,57-67,69
+  s_70667b89c798c8::t_90a405f9f43565 44
+  s_70667b89c798c8::t_54057f5cb6cf11 68
+  s_70667b89c798c8::t_bf64f9c9b67d3d 2
+src/lib/ai/approvals/runtime.ts
+  s_70667b89c798c8::t_868438d0c983a0 141-144,146-150
+  s_70667b89c798c8::t_5c868958b1c9c1 68-71,75,77-78
+  s_70667b89c798c8::t_9d292151ecd42a 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "5d12a7d4adc6d35e7f60ab5b7b4363a72e6e99b4",
+  "prompts": {},
+  "sessions": {
+    "s_70667b89c798c8": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1282b083-e6d0-4319-bfad-b0004d6ccfb8",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Rayhan Noufal Arayilakath <me@rayhanadev.com>"
+    }
+  }
+}
